@@ -1,5 +1,5 @@
 ---
-title: Theeming
+title: Theming
 ---
 
 Since the widget toolkit is **GTK3** the theeming is done with **CSS**.

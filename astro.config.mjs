@@ -8,7 +8,7 @@ const config = [
     'JavaScript',
     'First Widgets',
     'Reactivity',
-    'Theeming',
+    'Theming',
     'Config Object',
     'Type Checking',
     'CLI',
