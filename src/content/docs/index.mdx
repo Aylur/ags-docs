@@ -1,0 +1,34 @@
+---
+title: Aylur's GTK Shell
+description: Get started building your docs site with Starlight.
+template: splash
+hero:
+  tagline: The best way to make <i>beautiful</i> <b>and</b> <i>functional</i> wayland widgets (and more)!
+  actions:
+    - text: Get Started
+      link: /ags-docs/config/installation/
+      icon: right-arrow
+      variant: primary
+    - text: GitHub
+      link: https://github.com/Aylur/ags
+      icon: github
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Documentation
+
+<CardGrid>
+	<Card title="Widgets" icon="open-book">
+        List of Builtin [Widgets](./ags-docs/config/widgets)
+	</Card>
+	<Card title="Services" icon="open-book">
+        List of Builtin [Services](./ags-docs/config/services)
+	</Card>
+	<Card title="Utilities" icon="open-book">
+		[Utility functions](./ags-docs/config/utils)
+	</Card>
+	<Card title="Examples" icon="open-book">
+		Have a look at some simple and not simple [examples](./ags-docs/config/examples)
+	</Card>
+</CardGrid>
