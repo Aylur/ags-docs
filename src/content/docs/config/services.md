@@ -62,13 +62,13 @@ Every service has a `"changed"` signal which is emitted
 on any kind of state change, unless stated otherwise.
 :::
 
-* [Applications](../service/applications)
-* [Audio](../service/Audio)
-* [Battery](../service/Battery)
-* [Bluetooth](../service/Bluetooth)
-* [Hyprland](../service/Hyprland)
-* [Mpris](../service/Mpris)
-* [Network](../service/Network)
-* [Notifications](../service/Notifications)
-* [Power Profle](../services/power-profile.md)
-* [System Tray](../service/SystemTray)
+* [Applications](../services/applications)
+* [Audio](../services/Audio)
+* [Battery](../services/Battery)
+* [Bluetooth](../services/Bluetooth)
+* [Hyprland](../services/Hyprland)
+* [Mpris](../services/Mpris)
+* [Network](../services/Network)
+* [Notifications](../services/Notifications)
+* [Power Profle](../services/power-profiles.md)
+* [System Tray](../services/SystemTray)

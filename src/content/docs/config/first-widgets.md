@@ -226,8 +226,8 @@ label.connect('notify::label', ({ label }) => {
 
 For *most* of your system, you don't have to use external
 scripts and binaries to query information.
-AGS has builtin [Services](./services).
-They are just like [Variables](./variables) but instead
+AGS has builtin [Services](../services).
+They are just like [Variables](../variables) but instead
 of a single `value` they have more attributes and methods on them.
 
 ```js

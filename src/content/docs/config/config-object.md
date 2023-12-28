@@ -37,4 +37,4 @@ export default {
 | `maxStreamVolume` | `number` | Maximum possible volume on an Audio Stream
 | `cacheCoverArt` | `boolean` | Whether to cache mpris cover arts. `true` by default
 | `style` | `string` | Path to a css file.
-| `windows` | `Array<Gtk.Window>` | List of [Windows](./widgets#window).
+| `windows` | `Array<Gtk.Window>` | List of [Windows](../widgets#window).
