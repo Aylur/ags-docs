@@ -49,7 +49,7 @@ export default defineConfig({
         starlight({
             title: 'AGS Wiki',
             editLink: {
-                baseUrl: 'https://github.com/Aylur/ags/docs/',
+                baseUrl: 'https://github.com/Aylur/ags-docs',
             },
             social: {
                 github: 'https://github.com/Aylur/ags',
