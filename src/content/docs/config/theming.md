@@ -2,7 +2,7 @@
 title: Theming
 ---
 
-Since the widget toolkit is **GTK3** the theeming is done with **CSS**.
+Since the widget toolkit is **GTK3** theming is done with **CSS**.
 
 * [CSS tutorial](https://www.w3schools.com/css/)
 * [GTK CSS Overview wiki](https://docs.gtk.org/gtk3/css-overview.html)
