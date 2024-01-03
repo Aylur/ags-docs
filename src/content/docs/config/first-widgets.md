@@ -156,7 +156,7 @@ What you want to do is move the date into a `Variable` and `bind` it.
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 
 const date = Variable('', {
-    poll: [1000, 'data'],
+    poll: [1000, 'date'],
 });
 
 const Bar = () => Widget.Window({
