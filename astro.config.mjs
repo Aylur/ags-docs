@@ -45,6 +45,9 @@ const widgets = [
 export default defineConfig({
     site: 'https://aylur.github.io',
     base,
+    build: {
+        format: 'file',
+    },
     integrations: [
         starlight({
             title: 'AGS Wiki',
