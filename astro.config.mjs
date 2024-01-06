@@ -46,7 +46,7 @@ export default defineConfig({
     site: 'https://aylur.github.io',
     base,
     build: {
-        format: 'file',
+        format: 'directory',
     },
     integrations: [
         starlight({
