@@ -19,6 +19,10 @@ set as your GTK3 theme
 
 ![applauncher](../../../assets/applauncher.png)
 
+## [Media Widget](https://github.com/Aylur/ags/tree/main/example/media-widget)
+
+![media-widget](../../../assets/mpris.png)
+
 ## Other widget examples
 
 You can also browse my [config files](https://github.com/Aylur/dotfiles/tree/main/ags)
