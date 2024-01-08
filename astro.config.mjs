@@ -19,6 +19,7 @@ const config = [
     'Custom Service',
     'Subclassing GTK Widgets',
     'Examples',
+    'Common Issues'
 ];
 
 const widgets = [
