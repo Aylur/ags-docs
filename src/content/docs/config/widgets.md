@@ -167,6 +167,7 @@ subclass of [Gtk.Bin](https://gjs-docs.gnome.org/gtk30~3.0/gtk.bin)
 | Property | Type | Description |
 |----------|------|-------------|
 | start-at | number | Number between 0 and 1, e.g 0.75 is the top
+| end-at | number | Number between 0 and 1
 | inverted | boolean |
 | rounded | boolean | Wether the progress bar should have rounded ends
 | value | number | Number between 0 and 1
