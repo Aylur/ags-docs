@@ -52,7 +52,7 @@ meaning if you want to use `|` pipes or any other shell
 operator then you have to run it with bash.
 
 ```js
-Utils.execAsync(['bash', '-c', ['something | something && something']);
+Utils.execAsync(['bash', '-c', 'something | something && something']);
 Utils.exec('bash -c "something | something && something"');
 ```
 
