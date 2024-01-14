@@ -31,7 +31,7 @@ yay -S aylurs-gtk-shell # or aylurs-gtk-shell-git
 
 ## Fedora
 
-maintainer: [@mrhyperbit](https://github.com/solopasha)
+maintainer: [@solopasha](https://github.com/solopasha)
 
 ```bash
 sudo dnf copr enable solopasha/hyprland
