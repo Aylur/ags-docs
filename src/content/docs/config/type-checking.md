@@ -48,11 +48,16 @@ import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js'
 const entry = App.configDir + '/ts/main.ts'
 const outdir = '/tmp/ags/js'
 
-await execAsync([
-    'bun', 'build', entry,
-    '--outdir', outdir,
-    '--external', '*',
-])
+try {
+    await execAsync([
+        'bun', 'build', entry,
+        '--outdir', outdir,
+        '--external', 'resource://*',
+        '--external', 'gi://*',
+    ])
+} catch (error) {
+    console.error(error)
+}
 
 const main = await import(`file://${outdir}/main.js`)
 
@@ -71,4 +76,3 @@ export default {
     windows: [Bar(0)]
 }
 ```
-
