@@ -6,7 +6,7 @@ Variable is just a simple `GObject` that holds a value.
 
 :::tip
 The construction will depend on how you import it.
-The default import is a function while the `Vaiable`
+The default import is a function while the `Variable`
 member in the module is the `class` itself.
 
 ```js
