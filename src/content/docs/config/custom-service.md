@@ -109,7 +109,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Brightness from './brightness.js';
 
 const slider = Widget.Slider({
-    on_change: self => service.screen_value = self.value,
+    on_change: self => Brightness.screen_value = self.value,
     value: Brightness.bind('screen-value'),
 });
 
