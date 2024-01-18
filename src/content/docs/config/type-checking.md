@@ -18,7 +18,7 @@ Copy the starter config
 ```bash
 git clone https://github.com/Aylur/ags.git /tmp/starter-config
 mkdir -p ~/.config/ags
-cp /tmp/starter-config/ags/example/starter-config/* ~/.config/ags
+cp /tmp/starter-config/example/starter-config/* ~/.config/ags
 ```
 
 Setup types
