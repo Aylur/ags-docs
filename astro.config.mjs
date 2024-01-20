@@ -16,6 +16,7 @@ const config = [
     'Variables',
     'Services',
     'Utils',
+    'App',
     'Custom Service',
     'Subclassing GTK Widgets',
     'Examples',
