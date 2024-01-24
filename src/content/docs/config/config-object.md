@@ -19,6 +19,10 @@ export default {
     maxStreamVolume: 1.5, // float
     cacheCoverArt: true,
 
+    onConfigParsed: function() {
+        // code that runs after this object is loaded
+    }
+
     style: App.configDir + '/style.css',
     windows: [
         // Array<Gtk.Window>
@@ -36,5 +40,6 @@ export default {
 | `cacheNotificationActions` | `boolean` | Whether to cache notification actions, so that they can be reloaded
 | `maxStreamVolume` | `number` | Maximum possible volume on an Audio Stream
 | `cacheCoverArt` | `boolean` | Whether to cache mpris cover arts. `true` by default
+| `onConfigParsed` | `(app: App) => void` | Callback to execute after all user modules were resolved.
 | `style` | `string` | Path to a css file.
 | `windows` | `Array<Gtk.Window>` | List of [Windows](./widgets#window).
