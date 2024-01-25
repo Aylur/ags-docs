@@ -49,4 +49,4 @@ title: Notifications
 * `close` `() => void`
 * `invoke` `(actionId: string) => void` invoking an action will also close the notification
 
-## [Example Notification Center](https://github.com/Aylur/ags/tree/main/example/notification-center)
+## [Example Notification Popups](https://github.com/Aylur/ags/tree/main/example/notification-popups)
