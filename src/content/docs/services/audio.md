@@ -2,6 +2,10 @@
 title: Audio
 ---
 
+:::note
+Gvc, the backed used for audio uses pulseaudio, so make sure `pipewire-pulse` is installed if using pipewire
+:::
+
 ## signals
 
 * `speaker-changed` default speaker's state changed
