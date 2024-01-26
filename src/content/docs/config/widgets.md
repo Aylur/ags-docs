@@ -72,6 +72,7 @@ subclass of [Gtk.Window](https://gjs-docs.gnome.org/gtk30~3.0/gtk.window)
 | monitor | number | Which monitor to show the window on. If it is left undefined the window will show on the currently focused monitor.
 | popup | boolean | Pressing `ESC` while the window has focus will close it.
 | keymode | string | Valid values are `"none"`, `"on-demand"`: can receive keyboard input if focused, `"exclusive"`: steal keyboard input on top and overlay layers
+| gdkmonitor | Gdk.Monitor | alternative to `monitor`
 
 ```js
 const window = Widget.Window({
