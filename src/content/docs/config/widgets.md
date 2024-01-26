@@ -67,18 +67,18 @@ subclass of [Gtk.Window](https://gjs-docs.gnome.org/gtk30~3.0/gtk.window)
 | name | string | Name of the window. This has to be unique, if you pass it in config. This will also be the name of the layer.
 | anchor | string[] | Valid values are `"top"`, `"bottom"`, `"left"`, `"right"`. Anchor points of the window. Leave it empty to make it centered.
 | exclusivity | string | Specify if the compositor should reserve space for the window automatically or how the window should interact with windows that do. Possible values: `exclusive` (space should be reserved), `normal` (the window should move if occluding another), `ignore` (the window should not be moved). Default: `normal`.
-| focusable | boolean | Useful if you have an `entry` or other widgets that require user input.
 | layer | string | Valid values are `"overlay"`, `"top"`, `"bottom"`, `"background"`. It is `"top"` by default.
 | margins | number[] | Corresponds to CSS notation, e.g `[0, 6]` would have 0 margin on the top and bottom and would have 6 on the right and left.
 | monitor | number | Which monitor to show the window on. If it is left undefined the window will show on the currently focused monitor.
 | popup | boolean | Pressing `ESC` while the window has focus will close it.
+| keymode | string | Valid values are `"none"`, `"on-demand"`: can receive keyboard input if focused, `"exclusive"`: steal keyboard input on top and overlay layers
 
 ```js
 const window = Widget.Window({
     name: 'window-name',
     anchor: ['top', 'left', 'right'],
     exclusive: false,
-    focusable: false,
+    keymode: 'on-demand',
     layer: 'top',
     margin: [0, 6],
     monitor: 0,

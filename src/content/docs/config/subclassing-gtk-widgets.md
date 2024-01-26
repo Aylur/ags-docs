@@ -79,11 +79,11 @@ If you still want to subclass, you can do so by subclassing
 a Gtk.WIdget using the `AgsWidget` mixin class.
 
 ```js
-import AgsWidget from 'resource:///com/github/Aylur/ags/widgets/widget.js';
+import { register } from 'resource:///com/github/Aylur/ags/widgets/widget.js';
 
-class CounterButton extends AgsWidget(Gtk.Button, 'CounterButton') {
+class CounterButton extends Gtk.Button {
     static {
-        AgsWidget.register(this, {
+        register(this, {
             properties: {
                 'count': ['int', 'rw']
             }
