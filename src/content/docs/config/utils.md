@@ -246,6 +246,7 @@ Allows to authenticate a user using pam.
 Utils.authenticate("password")
     .then(res => print("authentication sucessful"))
     .catch(logError)
+
 Utils.authenticate_user("username", "password")
     .then(res => print("authentication sucessful"))
     .catch(logError)
