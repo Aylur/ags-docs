@@ -236,3 +236,17 @@ Utils.fetch('http://wttr.in/?format=3')
     .then(print)
     .catch(console.error)
 ```
+
+
+## Authentication
+
+Allows to authenticate a user using pam.
+
+```js
+Utils.authenticate("password")
+    .then(res => print("authentication sucessful"))
+    .catch(logError)
+Utils.authenticate_user("username", "password")
+    .then(res => print("authentication sucessful"))
+    .catch(logError)
+```
