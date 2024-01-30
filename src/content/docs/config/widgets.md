@@ -78,7 +78,7 @@ subclass of [Gtk.Window](https://gjs-docs.gnome.org/gtk30~3.0/gtk.window)
 const window = Widget.Window({
     name: 'window-name',
     anchor: ['top', 'left', 'right'],
-    exclusive: false,
+    exclusivity: 'normal',
     keymode: 'on-demand',
     layer: 'top',
     margin: [0, 6],
