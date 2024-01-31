@@ -237,17 +237,20 @@ Utils.fetch('http://wttr.in/?format=3')
     .catch(console.error)
 ```
 
-
 ## Authentication
 
-Allows to authenticate a user using pam.
+authenticate a user using pam
+
+:::note
+on NixOS make sure you have `security.pam.services.ags = {}` in `configuration.nix`
+:::
 
 ```js
-Utils.authenticate("password")
-    .then(res => print("authentication sucessful"))
-    .catch(logError)
+Utils.authenticate('password')
+    .then(() => print('authentication sucessful'))
+    .catch(err => logError(err, 'unsucessful'))
 
-Utils.authenticate_user("username", "password")
-    .then(res => print("authentication sucessful"))
-    .catch(logError)
+Utils.authenticateUser("username", "password")
+    .then(() => print("authentication sucessful"))
+    .catch(err => logError(err, 'unsucessful'))
 ```
