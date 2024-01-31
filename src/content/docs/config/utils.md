@@ -236,3 +236,21 @@ Utils.fetch('http://wttr.in/?format=3')
     .then(print)
     .catch(console.error)
 ```
+
+## Authentication
+
+authenticate a user using pam
+
+:::note
+on NixOS make sure you have `security.pam.services.ags = {}` in `configuration.nix`
+:::
+
+```js
+Utils.authenticate('password')
+    .then(() => print('authentication sucessful'))
+    .catch(err => logError(err, 'unsucessful'))
+
+Utils.authenticateUser("username", "password")
+    .then(() => print("authentication sucessful"))
+    .catch(err => logError(err, 'unsucessful'))
+```
