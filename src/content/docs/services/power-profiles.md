@@ -19,23 +19,22 @@ title: Power Profiles
 ## Example Widgets
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import PowerProfiles from 'resource:///com/github/Aylur/ags/service/powerprofiles.js';
+const powerProfiles = await Service.import('powerprofiles')
 
 const label = Widget.Label({
-    label: PowerProfiles.bind('active-profile'),
-});
+    label: powerProfiles.bind('active_profile'),
+})
 
 const button = Widget.Button({
     on_clicked: () => {
-        switch (PowerProfiles.active_profile) {
-        case 'balanced':
-            PowerProfiles.active_profile = 'performance';
-            break;
-        default:
-            PowerProfiles.active_profile = 'balanced';
-            break;
+        switch (powerProfiles.active_profile) {
+            case 'balanced':
+                powerProfiles.active_profile = 'performance';
+                break;
+            default:
+                powerProfiles.active_profile = 'balanced';
+                break;
         };
     },
-});
+})
 ```

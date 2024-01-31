@@ -1,5 +1,6 @@
 ---
 title: Theming
+description: GTK3 CSS theming
 ---
 
 Since the widget toolkit is **GTK3** theming is done with **CSS**.
@@ -9,7 +10,7 @@ Since the widget toolkit is **GTK3** theming is done with **CSS**.
 * [GTK CSS Properties Overview wiki](https://docs.gtk.org/gtk3/css-properties.html)
 
 :::caution[GTK is not the web]
-While most features are implemented in GTK,
+While most features are imp~/.config/ags/config.jslemented in GTK,
 you can't assume anything that works on the web will work with GTK.
 Refer to the [GTK docs](https://docs.gtk.org/gtk3/css-overview.html)
 to see what is available.
@@ -24,14 +25,12 @@ with the `css` property.
 
 ```js
 // config.js
-import App from 'resource:///com/github/Aylur/ags/app.js';
-
 export default {
     // this style attribute takes a full path to a css file
     style: '/home/username/.config/ags/style.css',
 
-    // you can get the current config directory through App
-    style: App.configDir + '/style.css',
+    // or relative to config.js
+    style: './style.css',
 }
 ```
 
@@ -70,9 +69,6 @@ ags --inspector
 
 ```js
 // config.js
-import App from 'resource:///com/github/Aylur/ags/app.js'
-import { exec } from 'resource:///com/github/Aylur/ags/utils.js'
-
 // main scss file
 const scss = `${App.configDir}/style.scss`
 
@@ -80,7 +76,7 @@ const scss = `${App.configDir}/style.scss`
 const css = `${App.configDir}/style.css`
 
 // make sure sassc is installed on your system
-exec(`sassc ${scss} ${css}`)
+Utils.exec(`sassc ${scss} ${css}`)
 
 export default {
     style: css,
@@ -91,9 +87,6 @@ export default {
 ## Autoreload Css
 
 ```js
-import App from 'resource:///com/github/Aylur/ags/app.js'
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
-
 Utils.monitorFile(
     // directory that contains the scss files
     `${App.configDir}/style`,
@@ -112,7 +105,7 @@ Utils.monitorFile(
         App.applyCss(css)
     },
 
-    // specify that its a directory
+    // specify that its a directory, to make the monitor recursive
     'directory',
 )
 ```

@@ -6,6 +6,7 @@ description: Home Manager Module
 Example content of a `flake.nix` file
 
 ```nix
+# flake.nix
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -25,7 +26,7 @@ Example content of a `flake.nix` file
   {
     homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs { inherit system; };
-      
+
       # pass inputs as specialArgs
       extraSpecialArgs = { inherit inputs; };
 
@@ -39,6 +40,7 @@ Example content of a `flake.nix` file
 Example content of `home.nix` file
 
 ```nix
+# home.nix
 { inputs, pkgs, ... }:
 {
   # add the home manager module
@@ -46,12 +48,16 @@ Example content of `home.nix` file
 
   programs.ags = {
     enable = true;
-    
+
     # null or path, leave as null if you don't want hm to manage the config
     configDir = ../ags;
 
     # additional packages to add to gjs's runtime
-    extraPackages = [ pkgs.libsoup_3 ];
+    extraPackages = with pkgs; [
+      gtksourceview
+      webkitgtk
+      accountsservice
+    ];
   };
 }
 ```

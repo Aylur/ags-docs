@@ -59,22 +59,22 @@ meaning you can't bind to it or use notify::prop signal
 ## Example Widget
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Network from 'resource:///com/github/Aylur/ags/service/network.js';
+const network = await Service.import('network')
 
 const WifiIndicator = () => Widget.Box({
     children: [
         Widget.Icon({
-            icon: Network.wifi.bind('icon-name'),
+            icon: network.wifi.bind('icon_name'),
         }),
         Widget.Label({
-            label: Network.wifi.bind('ssid'),
+            label: network.wifi.bind('ssid')
+                .transform(ssid => ssid || 'Unknown'),
         }),
     ],
 })
 
 const WiredIndicator = () => Widget.Icon({
-    icon: Network.wired.bind('icon-name'),
+    icon: network.wired.bind('icon_name'),
 })
 
 const NetworkIndicator = () => Widget.Stack({
@@ -82,6 +82,6 @@ const NetworkIndicator = () => Widget.Stack({
         ['wifi', WifiIndicator()],
         ['wired', WiredIndicator()],
     ],
-    shown: Network.bind('primary').transform(p => p || 'wifi'),
+    shown: network.bind('primary').transform(p => p || 'wifi'),
 })
 ```

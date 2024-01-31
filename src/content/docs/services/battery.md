@@ -22,15 +22,14 @@ on NixOS enable `services.upower`
 ## Example Widgets
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
+const battery = await Service.import('battery')
 
 const batteryProgress = Widget.CircularProgress({
     child: Widget.Icon({
-        icon: Battery.bind('icon-name')
+        icon: battery.bind('icon_name')
     }),
-    visible: Battery.bind('available'),
-    value: Battery.bind('percent').transform(p => p > 0 ? p / 100 : 0),
-    class_name: Battery.bind('charging').transform(ch => ch ? 'charging' : ''),
-});
+    visible: battery.bind('available'),
+    value: battery.bind('percent').transform(p => p > 0 ? p / 100 : 0),
+    class_name: battery.bind('charging').transform(ch => ch ? 'charging' : ''),
+})
 ```

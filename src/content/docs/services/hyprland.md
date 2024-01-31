@@ -54,36 +54,34 @@ The `active` property is composed by subservices, meaning you connect to any sub
 ```js
 const widget = Widget({
     setup: self => self
-        .hook(Hyprland, self => {})
-        .hook(Hyprland.active, self => {})
-        .hook(Hyprland.active.monitor, self => {})
-        .hook(Hyprland.active.workspace, self => {})
-        .hook(Hyprland.active.client, self => {})
+        .hook(hyprland, self => {})
+        .hook(hyprland.active, self => {})
+        .hook(hyprland.active.monitor, self => {})
+        .hook(hyprland.active.workspace, self => {})
+        .hook(hyprland.active.client, self => {})
 
-        .bind('prop', Hyprland, 'active', active => {})
-        .bind('prop', Hyprland.active, 'monitor', monitor => {})
-        .bind('prop', Hyprland.active, 'workspace', ws => {})
-        .bind('prop', Hyprland.active, 'client', client => {})
-        .bind('prop', Hyprland.active.monitor, 'id', id => {})
-        .bind('prop', Hyprland.active.workspace, 'id', id => {})
-        .bind('prop', Hyprland.active.client, 'address', address => {}),
+        .bind('prop', hyprland, 'active', active => {})
+        .bind('prop', hyprland.active, 'monitor', monitor => {})
+        .bind('prop', hyprland.active, 'workspace', ws => {})
+        .bind('prop', hyprland.active, 'client', client => {})
+        .bind('prop', hyprland.active.monitor, 'id', id => {})
+        .bind('prop', hyprland.active.workspace, 'id', id => {})
+        .bind('prop', hyprland.active.client, 'address', address => {}),
 })
 ```
 
 ## Example Widget
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+const hyprland = await Service.import('hyprland')
 
 const focusedTitle = Widget.Label({
-    label: Hyprland.active.client.bind('title'),
-    visible: Hyprland.active.client.bind('address')
+    label: hyprland.active.client.bind('title'),
+    visible: hyprland.active.client.bind('address')
         .transform(addr => !!addr),
-});
+})
 
-const dispatch = ws => Hyprland.sendMessage(`dispatch workspace ${ws}`);
+const dispatch = ws => hyprland.sendMessage(`dispatch workspace ${ws}`);
 
 const Workspaces = () => Widget.EventBox({
     onScrollUp: () => dispatch('+1'),
@@ -96,9 +94,9 @@ const Workspaces = () => Widget.EventBox({
         })),
 
         // remove this setup hook if you want fixed number of buttons
-        setup: self => self.hook(Hyprland, () => box.children.forEach(btn => {
-            btn.visible = Hyprland.workspaces.some(ws => ws.id === btn.attribute);
+        setup: self => self.hook(hyprland, () => self.children.forEach(btn => {
+            btn.visible = hyprland.workspaces.some(ws => ws.id === btn.attribute);
         })),
     }),
-});
+})
 ```

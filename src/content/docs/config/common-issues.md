@@ -1,6 +1,6 @@
 ---
 title: Common Issues
-description: Common Issues and Tips & Trick
+description: Common Issues and Tips & Tricks
 ---
 
 ## Window doesn't show up
@@ -24,9 +24,10 @@ Widget.Window({
 ## Custom svg symbolic icons
 
 Put svgs in a directory, named `<icon-name>-symbolic.svg`
-and use `Gtk.IconTheme.append_search_path` 
+and use `Gtk.IconTheme.append_search_path` or `icons` option in exported object
 
 ```js
+// config.js
 import Gtk from 'gi://Gtk?version=3.0';
 
 Gtk.IconTheme.get_default().append_search_path(`${App.configDir}/assets`);
@@ -35,4 +36,8 @@ Widget.Icon({
     icon: 'custom-symbolic', // custom-symbolic.svg
     css: 'color: green;', // can be colored, like other named icons
 });
+
+export default {
+    icons: `${App.configDir}/assets`,
+}
 ```

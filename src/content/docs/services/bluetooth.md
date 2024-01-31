@@ -44,23 +44,22 @@ for the battery percentage to work, make sure you have `Experimental = true` in 
 ## Example Widgets
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
+const bluetooth = await Service.import('bluetooth')
 
 const connectedList = Widget.Box({
-    setup: self => self.hook(Bluetooth, self => {
-        self.children = Bluetooth.connectedDevices
-            .map(({ iconName, name }) => Label({
-                indicator: Widget.Icon(iconName + '-symbolic'),
-                child: Widget.Label(name),
-            }));
+    setup: self => self.hook(bluetooth, self => {
+        self.children = bluetooth.connected_devices
+            .map(({ icon_name, name }) => Widget.Box([
+                Widget.Icon(icon_name + '-symbolic'),
+                Widget.Label(name),
+            ]));
 
-        self.visible = Bluetooth.connectedDevices.length > 0;
+        self.visible = bluetooth.connected_devices.length > 0;
     }, 'notify::connected-devices'),
-});
+})
 
 const indicator = Widget.Icon({
-    icon: Bluetooth.bind('enabled').transform(on =>
+    icon: bluetooth.bind('enabled').transform(on =>
         `bluetooth-${on ? 'active' : 'disabled'}-symbolic`),
-});
+})
 ```

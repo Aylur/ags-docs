@@ -63,17 +63,18 @@ NixOS: `services.gvfs`
 ## Example Widget
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
+const mpris = await Service.import('mpris')
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 const Player = player => Widget.Button({
     onClicked: () => player.playPause(),
     child: Widget.Label().hook(player, label => {
-        const { trackArtists, trackTitle } = player;
-        label.label = `${trackArtists.join(', ')} - ${trackTitle}`;
+        const { track_artists, track_title } = player;
+        label.label = `${track_artists.join(', ')} - ${track_title}`;
     }),
 })
 
-const players = Widget.Box()
-    .bind('children', Mpris, 'players', p => p.map(Player))
+const players = Widget.Box({
+    children: mpris.bind('players').transform(p => p.map(Player))
+})
 ```

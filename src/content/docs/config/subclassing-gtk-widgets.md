@@ -1,17 +1,15 @@
 ---
 title: Subclassing GTK Widgets
+description: Using GTK widgets not builtin
 ---
 
 ## Using Gtk.Widgets not builtin
 
-```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Gtk from 'gi://Gtk';
-```
-
 Use them like regular GTK widgets
 
 ```js
+import Gtk from 'gi://Gtk';
+
 const calendar = new Gtk.Calendar({
     showDayNames: false,
     showHeading: true,
@@ -50,19 +48,17 @@ and utilize [closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/C
 
 ```js
 function CounterButton(({ color = 'aqua', ...rest })) {
-    let count = 0;
+    const count = Variable(0);
 
     const label = Widget.Label({
-        label: '0',
+        label: count.bind().transform(v => `count: ${v}`),
         style: `color: ${color}`,
     });
 
     return Widget.Button({
         ...rest, // spread passed parameters
         child: label,
-        onClicked: () => {
-            label.label = `${count++}`;
-        }
+        onClicked: () => cound++,
     })
 }
 
@@ -76,21 +72,18 @@ const button = CounterButton({
 This approach comes with the limitation that parameters passed to these
 functions are that, just parameters and not `GObject` properties.
 If you still want to subclass, you can do so by subclassing
-a Gtk.WIdget using the `AgsWidget` mixin class.
+a Gtk.WIdget and registering it `Widget.register`.
 
 ```js
-import { register } from 'resource:///com/github/Aylur/ags/widgets/widget.js';
-
 class CounterButton extends Gtk.Button {
     static {
-        register(this, {
+        Widget.register(this, {
             properties: {
                 'count': ['int', 'rw']
             }
         })
     }
 
-    // if you define the ParamSpec with AgsWidget.register or GObject.registerClass
     // the super constructor will take care of setting the count prop
     // so you don't have to explicitly set count in the constructor
     constructor(props) {

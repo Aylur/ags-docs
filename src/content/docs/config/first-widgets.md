@@ -6,11 +6,12 @@ description: Starting point to understanding how AGS works
 Start by creating `~/.config/ags/config.js` with the following contents:
 
 ```js
+// ~/.config/ags/config.js
 export default {
     windows: [
         // this is where window definitions will go
-    ],
-};
+    ]
+}
 ```
 
 then run `ags` in the terminal
@@ -24,24 +25,27 @@ this is because you have an empty config.
 Running `ags` will execute the config like a regular script,
 it is just a library over GTK, and its on **you** to program your windows and widgets.
 
+:::tip
+run `ags --init` to generate a `tsconfig.json` and **symlink** the generated types,
+that will provide typesafety and autosuggestions
+:::
+
 ## Top Level: Window
 
-The top level container is a Window that will hold our widgets.
+The top level container is a Window that will hold widgets.
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-
 const myLabel = Widget.Label({
     label: 'some example content',
-});
+})
 
 const myBar = Widget.Window({
     name: 'bar',
     anchor: ['top', 'left', 'right'],
     child: myLabel,
-});
+})
 
-export default { windows: [myBar] };
+export default { windows: [myBar] }
 ```
 
 :::tip
@@ -67,7 +71,7 @@ w['class_name'] = ''
 
 ## Reusable Widgets
 
-Both `myLabel` and `myBar` constants we declared are a single instance
+Both `myLabel` and `myBar` constants we declared are a **single instance**
 of a `Gtk.Widget`. What if you have two monitors and want to have
 a bar for each? Make a function that returns a `Gtk.Widget` instance.
 
@@ -75,55 +79,54 @@ a bar for each? Make a function that returns a `Gtk.Widget` instance.
 function Bar(monitor = 0) {
     const myLabel = Widget.Label({
         label: 'some example content',
-    });
-    
-    const win = Widget.Window({
+    })
+
+    return Widget.Window({
         monitor,
         name: `bar${monitor}`, // this name has to be unique
         anchor: ['top', 'left', 'right'],
         child: myLabel,
-    });
-
-    return win;
+    })
 }
 
-export default { windows: [Bar(0), Bar(1)] };
+export default {
+    windows: [
+        Bar(0), // can be instantiated for each monitor
+        Bar(1),
+    ],
+}
 ```
 
 :::note
 The `name` attribute only has to be unique,
-if you pass it to `windows` in the exported object.
+if it is passed to `windows` in the exported object.
 
 Calling `Widget.Window` will create and show the window by default.
-You don't necessarily have to pass a reference to `windows` in
-the exported object, but if you don't,
-you won't be able to toggle it with `ags --toggle-window` or through `App.toggleWindow`
+It is not necessary to pass a reference to `windows` in
+the exported object, but if it is not,
+it can't be toggled with `ags --toggle-window` or through `App.toggleWindow`
 :::
 
 ## Dynamic Content
 
-Alright, but static text is boring, let's make it dynamically change by updating the label every second with a `date`.
+Alright, but **static** text is boring, let's make it **dynamically** change by updating the label every second with a `date`.
 
 ```js
-import { interval, exec } from 'resource:///com/github/Aylur/ags/utils.js';
-
 function Bar(monitor = 0) {
     const myLabel = Widget.Label({
         label: 'some example content',
-    });
+    })
 
-    interval(1000, () => {
-        myLabel.label = exec('date');
-    });
-    
-    const win = Widget.Window({
+    Utils.interval(1000, () => {
+        myLabel.label = Utils.exec('date')
+    })
+
+    return Widget.Window({
         monitor,
         name: `bar${monitor}`,
         anchor: ['top', 'left', 'right'],
         child: myLabel,
-    });
-
-    return win;
+    })
 }
 ```
 
@@ -132,7 +135,7 @@ JavaScript is **single threaded** and `exec` is a **blocking operation**,
 for a `date` call it's fine, but usually you want to use its **async** version: `execAsync`.
 :::
 
-Looking great, but that code has too much boilerplate for my taste.
+Looking great, but that code has too much boilerplate.
 Let's use a [fat arrow](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 instead of the `function` keyword, and instead of calling `interval`
 let's use the `poll` method.
@@ -144,82 +147,92 @@ const Bar = (monitor = 0) => Widget.Window({
     anchor: ['top', 'left', 'right'],
     child: Widget.Label()
         .poll(1000, label => label.label = exec('date')),
-});
+})
 ```
 
 :::tip
-That is still not the best solution, because when you create multiple
+That is still not the best solution, because when you instantiate multiple
 instances of `Bar` each will call `exec` separately.
 What you want to do is move the date into a `Variable` and `bind` it.
 
 ```js
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-
 const date = Variable('', {
     poll: [1000, 'date'],
-});
+})
 
 const Bar = () => Widget.Window({
-    child: Widget.Label().bind('label', date),
-});
+    child: Widget.Label({ label: date.bind() })
+})
 ```
 
 :::
 
 ## Signals
 
-We usually want to avoid polling, the less intervals the better.
-This is where `GObject` shines. We use **signals** for pretty much everything.
+Usually it is best to avoid polling. Rule of thumb: the less intervals the better.
+This is where `GObject` shines. We can use **signals** for pretty much everything.
+
+anytime `myVariable.value` changes it will send a signal
+and things can react to it
 
 ```js
-import Variable from 'resource:///com/github/Aylur/ags/variable.js';
+const myVariable = Variable(0)
+```
 
-// anytime myVariable.value changes
-// it will send a signal
-const myVariable = Variable(0);
+for example execute a callback
 
+```js
 myVariable.connect('changed', ({ value }) => {
-    print('myVariable changed to ' + `${value}`);
-});
+    print('myVariable changed to ' + `${value}`)
+})
+```
 
+**bind** its value to a widget's property
+
+```js
 const bar = Widget.Window({
     name: 'bar',
-    child: Widget.Label()
-        .bind('label', myVariable, 'value', v => `value: ${v}`),
-});
+    child: Widget.Label({
+        label: myVariable.bind().transform(v => `value: ${v}`)
+    }),
+})
 
-myVariable.value++
-myVariable.value++
+```
+
+incrementing the `value` causes the label to update and the callback to execute
+
+```js
 myVariable.value++
 ```
 
-For example with `pactl` you can get information about the volume level,
-but you don't want to have an interval that checks it periodically.
-You want a **signal** that signals every time its **changed**,
-so you only do operations when its needed.
-`pactl subscribe` writes to stdout everytime there is a change.
+For example with `pactl` it is possible to query information about the volume level,
+but we don't want to have an interval that checks it periodically.
+We want a **signal** that signals every time its **changed**,
+so that we only do operations when its needed, and therefore we don't waste resources.
+`pactl subscribe` writes to stdout everytime there is a **change**.
 
 ```js
 const pactl = Variable({ count: 0, msg: '' }, {
-    listen: ['pactl subscribe', msg => ({
+    listen: ['pactl subscribe', (msg) => ({
         count: pactl.value.count + 1,
         msg: msg,
     })],
-});
+})
 
 pactl.connect('changed', ({ value }) => {
-    print(value.msg, value.count);
-});
+    print(value.msg, value.count)
+})
 
-const label = Widget.Label()
-    .bind('label', pactl, 'value', ({ count, msg }) => {
-        return `${msg} ${count}`;
-    });
+const label = Widget.Label({
+    label: pactl.bind().transform(({ count, msg }) => {
+        return `${msg} ${count}`
+    })),
+})
 
 // widgets are GObjects too
 label.connect('notify::label', ({ label }) => {
-    print('label changed to ', label);
-});
+    print('label changed to ', label)
+})
 ```
 
 ## Avoiding external scripts
@@ -231,13 +244,12 @@ They are just like [Variables](../variables) but instead
 of a single `value` they have more attributes and methods on them.
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
+const battery = await Service.import('battery')
 
 const batteryProgress = Widget.CircularProgress({
-    value: Battery.bind('percent').transform(p => p / 100),
+    value: battery.bind('percent').transform(p => p / 100),
     child: Widget.Icon({
-        icon: Battery.bind('icon_name'),
+        icon: battery.bind('icon_name'),
     }),
-});
+})
 ```

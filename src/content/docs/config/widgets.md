@@ -1,5 +1,6 @@
 ---
 title: Widgets
+description: List of builtin subclassed widgets
 ---
 
 `Widget` functions return an instance of [Gtk.Widget](https://gjs-docs.gnome.org/gtk30~3.0/gtk.widget).
@@ -41,18 +42,6 @@ label.toggleClassName('my-awesome-label', true)
 label.toggleClassName('my-awesome-label', false)
 ```
 
-Importing
-
-```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js'
-```
-
-You can also import individual widgets
-
-```js
-import { Label, Box } from 'resource:///com/github/Aylur/ags/widget.js'
-```
-
 The properties listed here are just the additional properties on top of their
 base Gtk.Widget classes. [Refer to the Gtk3 docs](https://gjs-docs.gnome.org/gtk30~3.0/)
 for the rest of them.
@@ -84,7 +73,7 @@ const window = Widget.Window({
     margin: [0, 6],
     monitor: 0,
     child: Widget.Label('hello'),
-});
+})
 ```
 
 ### Box
@@ -110,9 +99,9 @@ const box = Widget.Box({
 
         // or if you want to add one child
         self.add(/* widget */)
-        self.show_all(); // widgets are invisible by default
-    })
-});
+        self.show_all() // widgets are invisible by default
+    }),
+})
 ```
 
 ### Button
@@ -137,8 +126,8 @@ subclass of [Gtk.Button](https://gjs-docs.gnome.org/gtk30~3.0/gtk.button)
 ```js
 const button = Widget.Button({
     child: Widget.Label('click me!'),
-    on_primary_click: () => print('echo hello')
-});
+    onPrimaryClick: () => print('echo hello'),
+})
 ```
 
 ### CenterBox
@@ -155,9 +144,9 @@ subclass of Box
 const centerBox = Widget.CenterBox({
     spacing: 8,
     vertical: false,
-    start_widget: Widget.Label('left widget'),
-    center_widget: Widget.Label('center widget'),
-    end_widget: Widget.Label('right widget'),
+    startWidget: Widget.Label('left widget'),
+    centerWidget: Widget.Label('center widget'),
+    endWidget: Widget.Label('right widget'),
 })
 ```
 
@@ -183,14 +172,14 @@ const progress = Widget.CircularProgress({
         'background-color: #131313;' + // set its bg color
         'color: aqua;', // set its fg color
 
-    value: Battery.bind('percent').transform(p => p / 100),
+    value: battery.bind('percent').transform(p => p / 100),
     child: Widget.Icon({
-        icon: Battery.bind('icon-name'),
+        icon: battery.bind('icon-name'),
     }),
     rounded: false,
     inverted: false,
     startAt: 0.75,
-});
+})
 ```
 
 ### Entry
@@ -207,8 +196,8 @@ const entry = Widget.Entry({
     placeholder_text: 'type here',
     text: 'initial text',
     visibility: true, // set to false for passwords
-    on_accept: ({ text }) => print(text),
-});
+    onAccept: ({ text }) => print(text),
+})
 ```
 
 ### EventBox
@@ -248,7 +237,7 @@ Widget.Icon('dialog-information-symbolic')
 Widget.Icon({
     icon: 'dialog-information-symbolic',
     style: 'font-size: 30px',
-});
+})
 
 // NOTE:
 // setting the icon dynamically has a flicker currently
@@ -256,7 +245,7 @@ Widget.Icon({
 Widget.Icon({
     icon: 'dialog-information-symbolic',
     size: 30,
-});
+})
 ```
 
 ### Label
@@ -274,10 +263,10 @@ const label = Widget.Label({
     justification: 'left',
     truncate: 'end',
     xalign: 0,
-    max_width_chars: 24,
+    maxWidthChars: 24,
     wrap: true,
-    use_markup: true,
-});
+    useMarkup: true,
+})
 ```
 
 ### Overlay
@@ -312,14 +301,14 @@ subclass of [Gtk.Revealer](https://gjs-docs.gnome.org/gtk30~3.0/gtk.revealer)
 
 ```js
 const revealer = Widget.Revealer({
-    reveal_child: false,
-    transition_duration: 1000,
+    revealChild: false,
+    transitionDuration: 1000,
     transition: 'slide_right',
     child: Widget.Label('hello!'),
     setup: self => self.poll(2000, () => {
         self.reveal_child = !self.reveal_child;
     }),
-});
+})
 ```
 
 ### Scrollable
@@ -340,7 +329,7 @@ const scrollable = Widget.Scrollable({
     child: Widget.Label('Lorem ipsum dolor sit amet, ' +
         'officia excepteur ex fugiat reprehenderit enim ' +
         'labore culpa sint ad nisi Lorem pariatur mollit'),
-});
+})
 ```
 
 ### Slider
@@ -358,7 +347,7 @@ subclass of [Gtk.Scale](https://gjs-docs.gnome.org/gtk30~3.0/gtk.scale)
 
 ```js
 Widget.Slider({
-    on_change: ({ value }) => print(value),
+    onChange: ({ value }) => print(value),
     vertical: true,
     value: 0,
     min: 0,
@@ -388,10 +377,10 @@ const stack = Widget.Stack({
         ['child1', Widget.Label('first child')],
         ['child2', Widget.Label('second child')],
     ],
-    setup: self => self.hook(SomeService, () => {
+    setup: self => self.hook(gobject, () => {
         self.shown = 'child2';
     })
-});
+})
 ```
 
 ### Menu
@@ -408,14 +397,14 @@ subclass of [Gtk.Menu](https://gjs-docs.gnome.org/gtk30~3.0/gtk.menu)
 // to have a menu popup on click
 const button = Widget.Button({
     child: Widget.Label('click to open menu'),
-    on_primary_click: (_, event) => Widget.Menu({
+    onPrimaryClick: (_, event) => Widget.Menu({
         children: [
             Widget.MenuItem({
                 child: Widget.Label('hello'),
             }),
         ],
     }).popup_at_pointer(event),
-});
+})
 ```
 
 ### MenuItem

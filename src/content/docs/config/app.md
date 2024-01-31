@@ -30,9 +30,6 @@ This is the main `Gtk.Application` instance that is running.
 ## Window toggled signal
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
-
 // this is only signaled for windows exported in config.js
 // or added with App.addWindow
 const label = Widget.Label()
@@ -47,8 +44,6 @@ const label = Widget.Label()
 If you want to change the style sheet on runtime
 
 ```js
-import App from 'resource:///com/github/Aylur/ags/app.js';
-
 // if you apply multiple, they are all going to apply on top of each other
 App.applyCss('path-to-file');
 

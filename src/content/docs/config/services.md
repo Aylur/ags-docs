@@ -1,5 +1,6 @@
 ---
 title: Services
+description: Builtig services to query system information
 ---
 
 A Service is an instance of a [GObject.Object](https://gjs-docs.gnome.org/gobject20~2.0/gobject.object)
@@ -11,9 +12,9 @@ which are usually functions that updates the widget's properties.
 const widget = Widget.Label()
     // the signal is 'changed' if not specified
     // [Service, callback, signal = 'changed']
-    .hook(SomeService, function(self, ...args) {
+    .hook(someService, function(self, ...args) {
         // there can be other arguments based on signals
-        self.label = 'new label';
+        self.label = 'new label'
     }, 'changed')
 
     // [prop, Service, targetProp, transfrom = out => out]
@@ -24,8 +25,8 @@ const widget = Widget.Label()
 
 ```js
 Widget.Label({
-    label: SomeService.bind('service-prop').transfrom(serviceProp => {
-        return `transformed ${serviceProp}`;
+    label: someService.bind('service-prop').transfrom(serviceProp => {
+        return `transformed ${serviceProp}`
     }),
 })
 ```
@@ -33,12 +34,29 @@ Widget.Label({
 Services can be also connected outside of widgets
 
 ```js
-SomeService.connect('changed', (service, ...args) => {
-    print(service, ...args);
+someService.connect('changed', (service, ...args) => {
+    print(service, ...args)
 })
 ```
 
+:::caution
+If you reference a widget inside `someService.connect`, make sure to
+handle disconnection aswell if that widget is destroyed
+:::
+
 ## List of builtin services
+
+use `Service.import`
+
+```js
+const battery = await Service.import('battery')
+```
+
+or if you prefer static import
+
+```js
+import { battery } from 'resource:///com/github/Aylur/ags/service/battery.js';
+```
 
 :::caution
 Import `default` and don't import the service class from the module,
@@ -51,6 +69,10 @@ import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 // this is also the service singleton instance
 import { battery } from 'resource:///com/github/Aylur/ags/service/battery.js';
 
+Battery === battery // true
+```
+
+```js
 // DON'T import it this way, this is the class
 import { Battery } from 'resource:///com/github/Aylur/ags/service/battery.js';
 ```
@@ -62,13 +84,14 @@ Every service has a `"changed"` signal which is emitted
 on any kind of state change, unless stated otherwise.
 :::
 
-* [Applications](../../services/applications)
-* [Audio](../../services/audio)
-* [Battery](../../services/battery)
-* [Bluetooth](../../services/bluetooth)
-* [Hyprland](../../services/hyprland)
-* [Mpris](../../services/mpris)
-* [Network](../../services/network)
-* [Notifications](../../services/notifications)
-* [Power Profle](../../services/power-profiles)
-* [System Tray](../../services/systemtray)
+* [applications](../../services/applications)
+* [audio](../../services/audio)
+* [battery](../../services/battery)
+* [bluetooth](../../services/bluetooth)
+* [greetd](../../services/greetd)
+* [hyprland](../../services/hyprland)
+* [mpris](../../services/mpris)
+* [network](../../services/network)
+* [notifications](../../services/notifications)
+* [power Profle](../../services/power-profiles)
+* [system Tray](../../services/systemtray)

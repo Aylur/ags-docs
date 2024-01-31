@@ -1,15 +1,19 @@
 ---
 title: Custom Service
+description: Writing Custom Services
 ---
+
+Writing a custom Service is as simple as
+
+- declaring a class
+- defining its signals and properties
+- declaring get/set for properties
 
 This is an example Service for backlight using `brightnessctl`
 to set the brightness and `Utils.monitorFile` to watch for changes.
 
 ```js
 // brightness.js
-import Service from 'resource:///com/github/Aylur/ags/service.js';
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
-
 class BrightnessService extends Service {
     // every subclass of GObject.Object has to register itself
     static {
@@ -105,17 +109,16 @@ For `bind` to work, the property has to be defined in `Service.register`
 Using it with widgets is as simple as using the builtin ones.
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Brightness from './brightness.js';
+import brightness from './brightness.js';
 
 const slider = Widget.Slider({
-    on_change: self => Brightness.screen_value = self.value,
-    value: Brightness.bind('screen-value'),
+    on_change: self => brightness.screen_value = self.value,
+    value: brightness.bind('screen-value'),
 });
 
 const label = Label({
-    label: Brightness.bind('screen-value').transform(v => `${v}`),
-    setup: self => self.hook(Brightness, (self, screenValue) => {
+    label: brightness.bind('screen-value').transform(v => `${v}`),
+    setup: self => self.hook(brightness, (self, screenValue) => {
         // screenValue is the passed parameter from the 'screen-changed' signal
         self.label = screenValue ?? 0;
 
@@ -124,9 +127,9 @@ const label = Label({
         // the passed screenValue will be undefined the first time
 
         // all three are valid
-        self.label = `${Brightness.screenValue}`;
-        self.label = `${Brightness.screen_value}`;
-        self.label = `${Brightness['screen-value']}`;
+        self.label = `${brightness.screenValue}`;
+        self.label = `${brightness.screen_value}`;
+        self.label = `${brightness['screen-value']}`;
     
     }, 'screen-changed'),
 });

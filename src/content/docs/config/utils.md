@@ -1,16 +1,7 @@
 ---
 title: Utils
+description: Utility functions
 ---
-
-```js
-import * as Utils from 'resource:///com/github/Aylur/ags/utils.js'
-```
-
-or only the functions you need
-
-```js
-import { execAsync, exec } from 'resource:///com/github/Aylur/ags/utils.js'
-```
 
 ## Running external commands
 
@@ -20,7 +11,7 @@ import { execAsync, exec } from 'resource:///com/github/Aylur/ags/utils.js'
 function exec(cmd: string): string
 ```
 
-This is synchronous, meaning it will block the shell
+This is synchronous, meaning it will **block the eventloop**
 
 ```js
 const echo = Utils.exec('echo "Hi Mom"') // returns string
@@ -48,12 +39,12 @@ Utils.execAsync(['echo', 'Hi Mom'])
 
 :::note
 Both `exec` and `execAsync` launches the given binary on its own,
-meaning if you want to use `|` pipes or any other shell
-operator then you have to run it with bash.
+meaning if you want to use `|` pipes or any other shell features
+then you have to run it with bash.
 
 ```js
-Utils.execAsync(['bash', '-c', 'something | something && something']);
-Utils.exec('bash -c "something | something && something"');
+Utils.execAsync(['bash', '-c', 'cmd | cmd && cmd']);
+Utils.exec('bash -c "cmd | cmd && cmd"');
 ```
 
 :::
@@ -85,7 +76,7 @@ const proc = Utils.subprocess(
     // optional widget parameter
     // if the widget is destroyed the subprocess is forced to quit
     widget,
-);
+)
 ```
 
 Killing the process
@@ -253,4 +244,24 @@ Utils.authenticate('password')
 Utils.authenticateUser("username", "password")
     .then(() => print("authentication sucessful"))
     .catch(err => logError(err, 'unsucessful'))
+```
+
+## Send Notifications
+
+```js
+Utils.notify('summary', 'body', 'icon-name')
+```
+
+```js
+const id = await Utils.notify({
+    summary: 'Title',
+    body: 'Description',
+    iconName: 'icon-name',
+    actions: {
+        'Click Me': () => print('clicked')
+    }
+})
+
+const notifications = await Service.import('notifications')
+const n = notifications.getNotification(id)
 ```

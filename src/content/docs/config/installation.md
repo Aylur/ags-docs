@@ -7,7 +7,7 @@ description: How to install AGS
 
 maintainer: [@Aylur](https://github.com/Aylur)
 
-You can use the [Home Manager module](../home-manager)
+The recommended way is the [Home Manager module](../home-manager)
 
 or use nix flake profile install
 

@@ -3,7 +3,7 @@ title: Audio
 ---
 
 :::note
-Gvc, the backed used for audio uses pulseaudio, so make sure `pipewire-pulse` is installed if using pipewire
+Gvc, the backend used for audio uses pulseaudio, so make sure `pipewire-pulse` is installed if using pipewire
 :::
 
 ## signals
@@ -11,7 +11,7 @@ Gvc, the backed used for audio uses pulseaudio, so make sure `pipewire-pulse` is
 * `speaker-changed` default speaker's state changed
 * `microphone-changed` default microphone' state changed
 * `stream-added`: `(id: number)` new stream appeared
-* `stream-rmoved`: `(id: number)` stream disappeared
+* `stream-removed`: `(id: number)` stream disappeared
 
 ## properties
 
@@ -43,48 +43,39 @@ Gvc, the backed used for audio uses pulseaudio, so make sure `pipewire-pulse` is
 ### Volume Slider
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+const audio = await Service.import('audio')
 
 /** @param {'speaker' | 'microphone'} type */
 const VolumeSlider = (type = 'speaker') => Widget.Slider({
     hexpand: true,
     drawValue: false,
-    onChange: ({ value }) => Audio[type].volume = value,
-    setup: self => self.hook(Audio, () => {
-        // Audio.speaker and Audio.microphone can be undefined
-        // to workaround this use the ? chain operator
-        self.value = Audio[type]?.volume || 0;
-    }, `${type}-changed`),
-});
+    onChange: ({ value }) => audio[type].volume = value,
+    value: audio[type].bind('volume'),
+})
 
-const speakerSlider = VolumeSlider('speaker');
-const micSlider = VolumeSlider('microphone');
+const speakerSlider = VolumeSlider('speaker')
+const micSlider = VolumeSlider('microphone')
 ```
 
 ### Indicator Icon
 
 ```js
-import Widget from 'resource:///com/github/Aylur/ags/widget.js';
-import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+const audio = await Service.import('audio')
 
 const volumeIndicator = Widget.Button({
-    onClicked: () => Audio.speaker.isMuted = !Audio.speaker.isMuted,
-    child: Widget.Icon().hook(Audio, self => {
-        if (!Audio.speaker)
-            return;
-
-        const vol = Audio.speaker.volume * 100;
+    on_clicked: () => audio.speaker.is_muted = !audio.speaker.is_muted,
+    child: Widget.Icon().hook(audio.speaker, self => {
+        const vol = audio.speaker.volume * 100;
         const icon = [
             [101, 'overamplified'],
-            [67,  'high'],
-            [34,  'medium'],
-            [1,   'low'],
-            [0,   'muted'],
-        ].find(([threshold]) => threshold <= vol)[1];
+            [67, 'high'],
+            [34, 'medium'],
+            [1, 'low'],
+            [0, 'muted'],
+        ].find(([threshold]) => threshold <= vol)?.[1];
 
         self.icon = `audio-volume-${icon}-symbolic`;
-        self.tooltipText = `Volume ${Math.floor(vol)}%`;
-    }, 'speaker-changed'),
-});
+        self.tooltip_text = `Volume ${Math.floor(vol)}%`;
+    }),
+})
 ```

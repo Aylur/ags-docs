@@ -1,8 +1,9 @@
 ---
 title: CLI
+description: Command Line Interface and running files
 ---
 
-```bash
+```sh
 $ ags --help
 
 USAGE:
@@ -18,7 +19,8 @@ OPTIONS:
     -t, --toggle-window     Show or hide a window
     -r, --run-js            Execute string as an async function
     -f, --run-file          Execute file as an async function
-    --clear-cache           Remove $HOME/.cache/ags
+    -I, --init              Initialize the configuration directory
+    -C, --clear-cache       Remove $HOME/.cache/ags
 
 ```
 
@@ -69,8 +71,7 @@ With `--run-js` it is possible to execute code when `ags` is already running.
 It is useful for: calling Service methods, updating Variable values,
 debugging or anything else.
 `--run-js` expects a string which will be the body of an *async function*
-executed relative to `app.ts`. This is important because of how you
-can import modules inside this function.
+executed relative to `app.ts`.
 
 If there is no `;` character in the string, `return` keyword will be inserted automatically
 
@@ -104,36 +105,26 @@ return 'hello from a file'
 ```
 
 :::info
-Since `--run-js` is the body of a function, you can't use top level imports
+Since `--run-js` is the body of a function, you can't use top level static imports
 :::
 
-This will throw an error
-
-```js
-#!/usr/bin/env -S ags --run-file
-import App from 'resource:///com/Aylur/github/ags/app.js'
-```
-
-You can use `import` as a method however
-
-```js
-#!/usr/bin/env -S ags --run-file
-const App = (await import(
-    'resource:///com/Aylur/github/ags/app.js',
-)).default;
-```
-
-:::tip
-The function gets executed relative to `app.ts`,
-meaning `resource:///com/Aylur/github/ags` can be substituted as `.`
-This also means importing a module from your config needs a full path.
+:::important
+The function gets executed relative to `app.ts`, which means
+importing a module from your config needs a full path.
 :::
 
+this throws
+
 ```js
 #!/usr/bin/env -S ags --run-file
-const App = (await import('./app.js')).default;
+import Module from 'file:///path/to/file.js' // throws
+```
 
-const File = await import(`file:///path/to/file.js`);
+You can use `import` as an **async** method
+
+```js
+#!/usr/bin/env -S ags --run-file
+const Module = (await import('file:///path/to/file.js')).default;
 ```
 
 ## Examples
