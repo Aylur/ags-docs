@@ -22,10 +22,3 @@ set as your GTK3 theme
 ## [Media Widget](https://github.com/Aylur/ags/tree/main/example/media-widget)
 
 ![media-widget](../../../assets/mpris.png)
-
-## Other widget examples
-
-You can also browse my [config files](https://github.com/Aylur/dotfiles/tree/main/ags)
-and copy whatever widget you want
-
-![widgets from dotfiles](https://github.com/Aylur/ags/assets/104676705/faf90efd-47ef-4b07-9f5a-91583a872d4e)
