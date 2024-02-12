@@ -97,7 +97,7 @@ Utils.monitorFile(
         const scss = `${App.configDir}/style.scss`
 
         // target css file
-        const css = `${App.configDir}/style.css`
+        const css = `/tmp/ags/style.css`
 
         // compile, reset, apply
         Utils.exec(`sassc ${scss} ${css}`)
@@ -109,3 +109,4 @@ Utils.monitorFile(
     'directory',
 )
 ```
+
