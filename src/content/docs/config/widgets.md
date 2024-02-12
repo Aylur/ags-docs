@@ -367,16 +367,16 @@ subclass of [Gtk.Stack](https://gjs-docs.gnome.org/gtk30~3.0/gtk.stack)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| items | \[string, Widget\] | name - Widget pairs |
-| shown | string | Name of the widget to show. This can't be set on construction, instead the first give widget will be shown. |
+| children | \{string, Widget\} | name: Widget key-value pairs |
+| shown | string | Name of the widget to show. This can't be set on construction, instead the first given widget will be shown. |
 | transition | string | `transitionType` represented as a string. Valid values are `none`, `crossfade`, `slide_right`, `slide_left`, `slide_up`, `slide_down`, `slide_left_right`, `slide_up_down`, `over_up`, `over_down`, `over_left`, `over_right`, `under_up`, `under_down`, `under_left`, `under_right`, `over_up_down`, `over_down_up`, `over_left_right`, `over_right_left`
 
 ```js
 const stack = Widget.Stack({
-    items: [
-        ['child1', Widget.Label('first child')],
-        ['child2', Widget.Label('second child')],
-    ],
+    children: {
+        'child1': Widget.Label('first child'),
+        'child2': Widget.Label('second child'),
+    },
     setup: self => self.hook(gobject, () => {
         self.shown = 'child2';
     })
