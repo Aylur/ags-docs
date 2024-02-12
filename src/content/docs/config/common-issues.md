@@ -41,3 +41,11 @@ export default {
     icons: `${App.configDir}/assets`,
 }
 ```
+
+## GtkWindow is not a layer surface
+If `Widget.Window` shows as up as a regular window,
+it usually means ags is running in xwayland.
+Try running `ags` from a non xwayland terminal, or try
+```bash
+env GDK_BACKEND=wayland ags
+```
