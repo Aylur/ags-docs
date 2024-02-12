@@ -146,7 +146,7 @@ const Bar = (monitor = 0) => Widget.Window({
     name: `bar${monitor}`,
     anchor: ['top', 'left', 'right'],
     child: Widget.Label()
-        .poll(1000, label => label.label = exec('date')),
+        .poll(1000, label => label.label = Utils.exec('date')),
 })
 ```
 
@@ -161,6 +161,8 @@ const date = Variable('', {
 })
 
 const Bar = () => Widget.Window({
+    name: 'bar',
+    anchor: ['top', 'left', 'right'],
     child: Widget.Label({ label: date.bind() })
 })
 ```
@@ -192,6 +194,7 @@ myVariable.connect('changed', ({ value }) => {
 ```js
 const bar = Widget.Window({
     name: 'bar',
+    anchor: ['top', 'left', 'right'],
     child: Widget.Label({
         label: myVariable.bind().transform(v => `value: ${v}`)
     }),
@@ -226,7 +229,7 @@ pactl.connect('changed', ({ value }) => {
 const label = Widget.Label({
     label: pactl.bind().transform(({ count, msg }) => {
         return `${msg} ${count}`
-    })),
+    }),
 })
 
 // widgets are GObjects too
