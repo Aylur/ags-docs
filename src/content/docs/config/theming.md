@@ -104,8 +104,5 @@ Utils.monitorFile(
         App.resetCss()
         App.applyCss(css)
     },
-
-    // specify that its a directory, to make the monitor recursive
-    'directory',
 )
 ```

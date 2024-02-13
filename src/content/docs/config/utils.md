@@ -120,7 +120,6 @@ Utils.writeFile('Contents: Hi Mom', 'path-to-file')
 function monitorFile(
     path: string,
     callback?: (file: Gio.File, event: Gio.FileMonitorEvent) => void,
-    type: 'file' | 'directory' = 'file',
     flags = Gio.FileMonitorFlags.NONE,
 ): Gio.FileMonitor | null
 ```
