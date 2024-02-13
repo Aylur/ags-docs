@@ -61,6 +61,7 @@ export default defineConfig({
                 discord: 'https://discord.gg/CXQpHwDuhY',
             },
             customCss: ['./src/styles/custom.css'],
+            favicon: './favicon.ico',
             sidebar: [
                 {
                     label: 'Configuration',
