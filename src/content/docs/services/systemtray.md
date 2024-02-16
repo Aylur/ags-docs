@@ -59,6 +59,6 @@ const SysTrayItem = item => Widget.Button({
 });
 
 const sysTray = Widget.Box({
-    children: systemtray.bind('items').transform(i => i.map(SysTrayItem))
+    children: systemtray.bind('items').as(i => i.map(SysTrayItem))
 })
 ```

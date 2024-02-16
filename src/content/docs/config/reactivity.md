@@ -81,7 +81,7 @@ and [Variables](./variables) that can be used inside constructors.
 Label({
     label: Battery
         .bind('percent')
-        .transform(p => `${p}%`)
+        .as(p => `${p}%`)
 })
 ```
 
@@ -91,7 +91,7 @@ const text = Variable('hello')
 Label({
     label: text
         .bind()
-        .transform(v => `transformed ${v}`)
+        .as(v => `transformed ${v}`)
 })
 ```
 

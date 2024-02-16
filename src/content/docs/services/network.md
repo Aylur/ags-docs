@@ -68,7 +68,7 @@ const WifiIndicator = () => Widget.Box({
         }),
         Widget.Label({
             label: network.wifi.bind('ssid')
-                .transform(ssid => ssid || 'Unknown'),
+                .as(ssid => ssid || 'Unknown'),
         }),
     ],
 })
@@ -82,6 +82,6 @@ const NetworkIndicator = () => Widget.Stack({
         ['wifi', WifiIndicator()],
         ['wired', WiredIndicator()],
     ],
-    shown: network.bind('primary').transform(p => p || 'wifi'),
+    shown: network.bind('primary').as(p => p || 'wifi'),
 })
 ```

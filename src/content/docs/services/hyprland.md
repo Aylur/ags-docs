@@ -8,10 +8,10 @@ title: Hyprland
 * `urgent-window`: `(windowaddress: int)`
 * `keyboard-layout`: `(keyboardname: string, layoutname: string)`
 * `submap`: `(name: string)`
-* `monitor-added`: `(name: string)`
-* `monitor-removed`: `(name: string)`
-* `workspace-added`: `(name: string)`
-* `workspace-removed`: `(name: string)`
+* `monitor-added`: `(name: number)`
+* `monitor-removed`: `(name: number)`
+* `workspace-added`: `(name: number)`
+* `workspace-removed`: `(name: number)`
 * `client-added`: `(address: string)`
 * `client-removed`: `(address: string)`
 
@@ -27,7 +27,8 @@ title: Hyprland
 * `getMonitor`: `(id: number) => Monitor`
 * `getWorkspace`: `(id: number) => Workspace`
 * `getClient`: `(address: string) => Client`
-* `sendMessage`: `(msg: string) => Promise<string>`: send a message to the [hyprland socket](https://wiki.hyprland.org/IPC/#tmphyprhissocketsock)
+* `message`: `(msg: string) => string`: send a message to the [hyprland socket](https://wiki.hyprland.org/IPC/#tmphyprhissocketsock)
+* `messageAsync`: `(msg: string) => Promise<string>`: async version of message
 
 ## Active
 
@@ -78,10 +79,10 @@ const hyprland = await Service.import('hyprland')
 const focusedTitle = Widget.Label({
     label: hyprland.active.client.bind('title'),
     visible: hyprland.active.client.bind('address')
-        .transform(addr => !!addr),
+        .as(addr => !!addr),
 })
 
-const dispatch = ws => hyprland.sendMessage(`dispatch workspace ${ws}`);
+const dispatch = ws => hyprland.messageAsync(`dispatch workspace ${ws}`);
 
 const Workspaces = () => Widget.EventBox({
     onScrollUp: () => dispatch('+1'),

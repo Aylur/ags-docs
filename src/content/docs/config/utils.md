@@ -90,25 +90,26 @@ proc.force_exit()
 ```ts
 function readFile(file: string | Gio.File): string
 function readFileAsync(file: string | Gio.File): Promise<string>
+
+function writeFileSync(string: string, path: string): Gio.File
+function writeFile(string: string, path: string): Promise<Gio.File>
 ```
 
-### Synchronously reading, returns a string
+### Synchronously
 
 ```js
-const contents = Utils.readFile('path-to-file')
+const contents = Utils.readFile('/path/to/file')
+
+Utils.writeFileSync('/path/to/file', 'some content')
 ```
 
-### Asynchronously reading, returns a Promise
+### Asynchronously
 
 ```js
 Utils.readFileAsync('path-to-file')
     .then(content => print('contents of the file: ' + content))
     .catch(logError)
-```
 
-### Asynchronously writing, returns a Promise
-
-```js
 Utils.writeFile('Contents: Hi Mom', 'path-to-file')
     .then(file => print('file is the Gio.File'))
     .catch(err => print(err))
@@ -120,7 +121,6 @@ Utils.writeFile('Contents: Hi Mom', 'path-to-file')
 function monitorFile(
     path: string,
     callback?: (file: Gio.File, event: Gio.FileMonitorEvent) => void,
-    type: 'file' | 'directory' = 'file',
     flags = Gio.FileMonitorFlags.NONE,
 ): Gio.FileMonitor | null
 ```

@@ -17,7 +17,7 @@ const widget = Widget.Label()
         self.label = 'new label'
     }, 'changed')
 
-    // [prop, Service, targetProp, transfrom = out => out]
+    // [prop, Service, targetProp, transform = out => out]
     .bind('label', SomeService, 'service-prop', function(serviceProp) {
         return `transformed ${serviceProp}`
     })
@@ -25,8 +25,18 @@ const widget = Widget.Label()
 
 ```js
 Widget.Label({
-    label: someService.bind('service-prop').transfrom(serviceProp => {
+    label: someService.bind('service-prop').as(serviceProp => {
         return `transformed ${serviceProp}`
+    }),
+})
+```
+
+Utility to have multiple bindings as one
+
+```js
+Widget.Label({
+    label: Utils.merge([service1.bind("prop1"), service2.bind("prop2")], (p1, p2) => {
+        return `service1.prop1: ${p1}, service2.prop2: ${p2}`
     }),
 })
 ```

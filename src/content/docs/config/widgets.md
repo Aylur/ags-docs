@@ -172,7 +172,7 @@ const progress = Widget.CircularProgress({
         'background-color: #131313;' + // set its bg color
         'color: aqua;', // set its fg color
 
-    value: battery.bind('percent').transform(p => p / 100),
+    value: battery.bind('percent').as(p => p / 100),
     child: Widget.Icon({
         icon: battery.bind('icon-name'),
     }),

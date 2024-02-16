@@ -117,7 +117,7 @@ const slider = Widget.Slider({
 });
 
 const label = Label({
-    label: brightness.bind('screen-value').transform(v => `${v}`),
+    label: brightness.bind('screen-value').as(v => `${v}`),
     setup: self => self.hook(brightness, (self, screenValue) => {
         // screenValue is the passed parameter from the 'screen-changed' signal
         self.label = screenValue ?? 0;

@@ -59,7 +59,7 @@ const connectedList = Widget.Box({
 })
 
 const indicator = Widget.Icon({
-    icon: bluetooth.bind('enabled').transform(on =>
+    icon: bluetooth.bind('enabled').as(on =>
         `bluetooth-${on ? 'active' : 'disabled'}-symbolic`),
 })
 ```

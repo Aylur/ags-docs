@@ -75,6 +75,6 @@ const Player = player => Widget.Button({
 })
 
 const players = Widget.Box({
-    children: mpris.bind('players').transform(p => p.map(Player))
+    children: mpris.bind('players').as(p => p.map(Player))
 })
 ```

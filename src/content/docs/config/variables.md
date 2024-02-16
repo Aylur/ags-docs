@@ -50,6 +50,20 @@ myVar.value = 'new-value'
 myVar.setValue('new-value')
 ```
 
+:::caution
+using `setValue` will force a new value and thus signal `changed`,
+while setting `value` only signal if it gets a new value
+
+```js
+const myVar = Variable({ key: "value" })
+const value = myVar.value
+value["new-key"] = "value"
+myVar.value = value // won't emit, because its still the same object
+myVar.setValue(value) // will emit the signal
+```
+
+:::
+
 ### Getting its value
 
 ```js
@@ -87,7 +101,7 @@ const label = Widget.Label({
     label: myVar.bind(),
 
     // optional transform method
-    label: myVar.bind().transform(value => value.toString()),
+    label: myVar.bind().as(value => value.toString()),
 
     // hook to do more than an assignment on changed
     setup: self => self.hook(myVar, () => {
@@ -137,5 +151,18 @@ const cpuProgress = Widget.CircularProgress({
 
 const ramProgress = Widget.CircularProgress({
     value: ram.bind()
+})
+```
+
+## Derived Variables
+
+```js
+const a = Variable(2)
+const b = Variable(3)
+
+// first argument is a list of dependencies
+// second argument is a transform function
+const c = Utils.derive([a, b], (a, b) => {
+    return a * b
 })
 ```

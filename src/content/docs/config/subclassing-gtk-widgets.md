@@ -51,7 +51,7 @@ function CounterButton(({ color = 'aqua', ...rest })) {
     const count = Variable(0);
 
     const label = Widget.Label({
-        label: count.bind().transform(v => `count: ${v}`),
+        label: count.bind().as(v => `count: ${v}`),
         style: `color: ${color}`,
     });
 

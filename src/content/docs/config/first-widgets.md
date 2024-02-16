@@ -196,7 +196,7 @@ const bar = Widget.Window({
     name: 'bar',
     anchor: ['top', 'left', 'right'],
     child: Widget.Label({
-        label: myVariable.bind().transform(v => `value: ${v}`)
+        label: myVariable.bind().as(v => `value: ${v}`)
     }),
 })
 
@@ -227,7 +227,7 @@ pactl.connect('changed', ({ value }) => {
 })
 
 const label = Widget.Label({
-    label: pactl.bind().transform(({ count, msg }) => {
+    label: pactl.bind().as(({ count, msg }) => {
         return `${msg} ${count}`
     }),
 })
@@ -250,7 +250,7 @@ of a single `value` they have more attributes and methods on them.
 const battery = await Service.import('battery')
 
 const batteryProgress = Widget.CircularProgress({
-    value: battery.bind('percent').transform(p => p / 100),
+    value: battery.bind('percent').as(p => p / 100),
     child: Widget.Icon({
         icon: battery.bind('icon_name'),
     }),
