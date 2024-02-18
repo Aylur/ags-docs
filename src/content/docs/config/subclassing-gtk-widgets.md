@@ -8,12 +8,12 @@ description: Using GTK widgets not builtin
 Use them like regular GTK widgets
 
 ```js
-import Gtk from 'gi://Gtk';
+import Gtk from 'gi://Gtk'
 
 const calendar = new Gtk.Calendar({
     showDayNames: false,
     showHeading: true,
-});
+})
 ```
 
 You can subclass Gtk.Widget not builtin to behave like AGS widgets.
@@ -30,7 +30,7 @@ const myCalendar = Calendar({
     setup(self) {
         self.bind()
     }
-});
+})
 ```
 
 :::tip
@@ -48,12 +48,12 @@ and utilize [closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/C
 
 ```js
 function CounterButton(({ color = 'aqua', ...rest })) {
-    const count = Variable(0);
+    const count = Variable(0)
 
     const label = Widget.Label({
         label: count.bind().as(v => `count: ${v}`),
         style: `color: ${color}`,
-    });
+    })
 
     return Widget.Button({
         ...rest, // spread passed parameters
@@ -66,7 +66,7 @@ function CounterButton(({ color = 'aqua', ...rest })) {
 const button = CounterButton({
     color: 'blue',
     className: 'my-widget',
-});
+})
 ```
 
 This approach comes with the limitation that parameters passed to these
@@ -87,27 +87,27 @@ class CounterButton extends Gtk.Button {
     // the super constructor will take care of setting the count prop
     // so you don't have to explicitly set count in the constructor
     constructor(props) {
-        super(props);
+        super(props)
 
         const label = new Gtk.Label({
             label: `${this.count}`,
-        });
+        })
 
-        this.add(label);
+        this.add(label)
 
         this.connect('clicked', () => {
-            this.count++;
-            label.label = `${this.count}`;
-        });
+            this.count++
+            label.label = `${this.count}`
+        })
     }
 
     get count() {
-        return this._count || 0;
+        return this._count || 0
     }
 
     set count(num) {
-        this._count = num;
-        this.notify('count');
+        this._count = num
+        this.notify('count')
     }
 }
 ```
@@ -125,4 +125,39 @@ const counterButton = new CounterButton({
 counterButton.connect('notify::count', ({ count }) => {
     print(count);
 })
+
+counterButton.count += 1
 ```
+
+:::tip
+You will never actually need to subclass, you can *fake* gobject props using Variables
+
+```js
+function CounterButton({ count, ...props }) {
+    const counter = Variable(count)
+
+    const button = Widget.Button({
+        on_clicked: () => counter.value += 1,
+        child: Widget.Label({
+            label: counter.bind().as(c => `${c}`),
+        }),
+        ...props,
+    })
+
+    return Object.assign(button, {
+        count: counter,
+    })
+}
+
+const counterButton = CounterButton({
+    count: 0,
+})
+
+counterButton.count.connect("changed", ({ value }) => {
+    print(value)
+})
+
+counterButton.count.value += 1
+```
+
+:::
