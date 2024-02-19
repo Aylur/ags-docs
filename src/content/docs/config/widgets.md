@@ -70,7 +70,7 @@ const window = Widget.Window({
     exclusivity: 'normal',
     keymode: 'on-demand',
     layer: 'top',
-    margin: [0, 6],
+    margins: [0, 6],
     monitor: 0,
     child: Widget.Label('hello'),
 })
