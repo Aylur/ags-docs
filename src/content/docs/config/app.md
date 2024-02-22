@@ -43,10 +43,24 @@ const label = Widget.Label()
 
 If you want to change the style sheet on runtime
 
-```js
-// if you apply multiple, they are all going to apply on top of each other
-App.applyCss('path-to-file');
+specifing a css file
 
-// to reset applied stylesheets
+```js
+App.applyCss('/path/to/file.css');
+```
+
+applying a stylesheet
+
+```js
+App.applyCss(`
+window {
+    background-color: transparent;
+}
+`)
+```
+
+to reset applied stylesheets
+
+```js
 App.resetCss();
 ```

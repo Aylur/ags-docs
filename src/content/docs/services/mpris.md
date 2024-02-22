@@ -38,8 +38,10 @@ NixOS: `services.gvfs`
 * `trackid`: `string`
 * `track-artists`: `string[]` list of artists
 * `track-title`: `string`
+* `track-album`: `string`
 * `track-cover-url`: `string` url to the cover art
 * `cover-path`: `string` path to the cached cover art
+* `metadata`: `{ [key: string]: unknown }` metadata object, see [freedesktop.org](https://www.freedesktop.org/wiki/Specifications/mpris-spec/metadata/) for known keys
 * `play-back-status`: `"Playing" | "Paused" | "Stopped"`
 * `can-go-next`: `boolean`
 * `can-go-prev`: `boolean`
@@ -78,3 +80,7 @@ const players = Widget.Box({
     children: mpris.bind('players').as(p => p.map(Player))
 })
 ```
+
+## [Example Media Widget](https://github.com/Aylur/ags/tree/main/example/media-widget)
+
+![media-widget](../../../assets/mpris.png)

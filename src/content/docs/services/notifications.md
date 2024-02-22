@@ -10,7 +10,11 @@ title: Notifications
 
 ## properties
 
-* `dnd`: `boolean` do no disturb, it will permit the notification to be added to Notifications.popups
+* `popupTimeout`: `number`: milliseconds, 3000 by default
+* `forceTimeout`: `boolean`: Force every notifications timeout to be `popupTimeout`. false by default.
+* `cacheActions`: `boolean`: Action buttons don't work if the sender process is no longer running. So on reboot they won't work. false by default
+* `clearDelay`: `number`: milliseconds to wait after each notification closed when calling `clear`. This is to prevent crashes when its not handled by the user.
+* `dnd`: `boolean`: do no disturb, it will permit the notification to be added to Notifications.popups
 * `popups`: `Notification[]`
 * `notifications`: `Notification[]`
 
@@ -49,4 +53,22 @@ title: Notifications
 * `close` `() => void`
 * `invoke` `(actionId: string) => void` invoking an action will also close the notification
 
+## Example
+
+```js
+const notifications = await Service.import("notifications")
+noritifications.popupTimeout = 3000;
+noritifications.forceTimeout = false;
+noritifications.cacheActions = false;
+noritifications.clearDelay = 100;
+
+Widget.Label({
+    label: notifications.bind("notifications").as(n =>
+        `there are ${n.length} notifications`
+    )
+})
+```
+
 ## [Example Notification Popups](https://github.com/Aylur/ags/tree/main/example/notification-popups)
+
+![notifs](../../../assets/notifs.png)

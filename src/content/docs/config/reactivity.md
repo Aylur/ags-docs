@@ -3,7 +3,7 @@ title: Reactivity
 ---
 
 We have used `poll` and `bind` so far to make widgets
-have content dynamically. There is also `on` and `hook` methods.
+have content dynamically. There is also `on`, `hook` and `keybind` methods.
 
 You can call these on any Widget that you have a reference on.
 They will return `this` reference, meaning you
@@ -105,7 +105,7 @@ These two are equivalent
 ```js
 function MyButton() {
     const self = Widget.Button()
-    
+
     self.connect('clicked', () => {
         print(self, 'is clicked')
     })
@@ -130,7 +130,7 @@ These two are equivalent
 ```js
 function MyLabel() {
     const self = Widget.Label()
-    
+
     Utils.interval(1000, () => {
         self.label = Utils.exec('date')
     }, self)
@@ -144,4 +144,20 @@ const MyLabel = () => Widget.Label()
     .poll(1000, self => {
         self.label = Utils.exec('date')
     })
+```
+
+## Keybind
+
+It is possible to setup keybindings on focused widgets
+
+```js
+// usually this way
+Widget.Button().on("key-press-event", (self, event) => {
+    // check event for keys
+})
+
+// with .keybind()
+Widget.Button().keybind(["MOD1", "CONTROL"], "a", (self, event) => {
+    print("alt+control+a was pressed")
+})
 ```

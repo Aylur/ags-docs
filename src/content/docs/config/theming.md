@@ -51,8 +51,19 @@ You can reset stylesheets with `App.resetCss`
 :::
 
 ```js
+App.applyCss('/path/to/file.css')
+```
+
+```js
+App.applyCss(`
+window {
+    background-color: transparent;
+}
+`)
+```
+
+```js
 App.resetCss() // reset if need
-App.applyCss('/full/path/to/file.css')
 ```
 
 ## Inspector
@@ -73,7 +84,7 @@ ags --inspector
 const scss = `${App.configDir}/style.scss`
 
 // target css file
-const css = `${App.configDir}/style.css`
+const css = `/tmp/my-style.css`
 
 // make sure sassc is installed on your system
 Utils.exec(`sassc ${scss} ${css}`)
@@ -97,7 +108,7 @@ Utils.monitorFile(
         const scss = `${App.configDir}/style.scss`
 
         // target css file
-        const css = `/tmp/ags/style.css`
+        const css = `/tmp/my-style.css`
 
         // compile, reset, apply
         Utils.exec(`sassc ${scss} ${css}`)
