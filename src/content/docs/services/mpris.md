@@ -17,6 +17,7 @@ NixOS: `services.gvfs`
 ## properties
 
 * `players`: `Player[]` see below
+* `cacheCoverArt`: `boolean` wether to cache `track-cover-url`, default: `true`
 
 ## methods
 
