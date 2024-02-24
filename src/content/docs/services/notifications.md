@@ -57,10 +57,10 @@ title: Notifications
 
 ```js
 const notifications = await Service.import("notifications")
-noritifications.popupTimeout = 3000;
-noritifications.forceTimeout = false;
-noritifications.cacheActions = false;
-noritifications.clearDelay = 100;
+notifications.popupTimeout = 3000;
+notifications.forceTimeout = false;
+notifications.cacheActions = false;
+notifications.clearDelay = 100;
 
 Widget.Label({
     label: notifications.bind("notifications").as(n =>
