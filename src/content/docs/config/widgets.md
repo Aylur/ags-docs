@@ -393,17 +393,21 @@ subclass of [Gtk.Menu](https://gjs-docs.gnome.org/gtk30~3.0/gtk.menu)
 | on-move-scroll | `(scroll_type: Gtk.ScrollType) => void` |
 
 ```js
-// to have a menu popup on click
-const button = Widget.Button({
-    child: Widget.Label('click to open menu'),
-    onPrimaryClick: (_, event) => Widget.Menu({
+function RightClickMenu() {
+    const menu = Widget.Menu({
         children: [
             Widget.MenuItem({
                 child: Widget.Label('hello'),
             }),
         ],
-    }).popup_at_pointer(event),
-})
+    })
+
+    return Widget.Button({
+        on_primary_click: (_, event) => {
+            menu.popup_at_pointer(event)
+        },
+    })
+}
 ```
 
 ### MenuItem
