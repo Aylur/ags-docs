@@ -14,6 +14,9 @@ This is the main `Gtk.Application` instance that is running.
 
 * `windows`: `Gtk.Window[]`
 * `configDir`: `string` path to the config directory
+* `iconTheme`: `string`
+* `cursorTheme`: `string`
+* `gtkTheme`: `string`
 
 ## methods
 
@@ -26,6 +29,7 @@ This is the main `Gtk.Application` instance that is running.
 * `quit`: `() => void`
 * `resetCss`: `() => void`
 * `applyCss`: `(path: string) => void`
+* `addIcons`: `(path: string) => void`
 
 ## Window toggled signal
 
