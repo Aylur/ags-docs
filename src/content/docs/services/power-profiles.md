@@ -2,6 +2,11 @@
 title: Power Profiles
 ---
 
+:::note
+package dependancy: `power-profiles-daemon`
+on NixOS enable `services.power-profiles-daemon`
+:::
+
 ## signals
 
 * `profile-released` `(id: number)`

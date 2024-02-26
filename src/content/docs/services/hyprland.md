@@ -5,7 +5,7 @@ title: Hyprland
 ## signals
 
 * `event`: `(name: string, data: string)`: [hyprland ipc events](https://wiki.hyprland.org/IPC/#events-list)
-* `urgent-window`: `(windowaddress: int)`
+* `urgent-window`: `(windowaddress: string)`
 * `keyboard-layout`: `(keyboardname: string, layoutname: string)`
 * `submap`: `(name: string)`
 * `monitor-added`: `(name: number)`
