@@ -8,10 +8,10 @@ title: Hyprland
 * `urgent-window`: `(windowaddress: string)`
 * `keyboard-layout`: `(keyboardname: string, layoutname: string)`
 * `submap`: `(name: string)`
-* `monitor-added`: `(name: number)`
-* `monitor-removed`: `(name: number)`
-* `workspace-added`: `(name: number)`
-* `workspace-removed`: `(name: number)`
+* `monitor-added`: `(name: string)`
+* `monitor-removed`: `(name: string)`
+* `workspace-added`: `(name: string)`
+* `workspace-removed`: `(name: string)`
 * `client-added`: `(address: string)`
 * `client-removed`: `(address: string)`
 
