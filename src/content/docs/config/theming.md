@@ -10,7 +10,7 @@ Since the widget toolkit is **GTK3** theming is done with **CSS**.
 * [GTK CSS Properties Overview wiki](https://docs.gtk.org/gtk3/css-properties.html)
 
 :::caution[GTK is not the web]
-While most features are imp~/.config/ags/config.jslemented in GTK,
+While most features are implemented in GTK,
 you can't assume anything that works on the web will work with GTK.
 Refer to the [GTK docs](https://docs.gtk.org/gtk3/css-overview.html)
 to see what is available.
