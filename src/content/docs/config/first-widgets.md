@@ -3,15 +3,15 @@ title: Your First Widget
 description: Starting point to understanding how AGS works
 ---
 
-Start by creating `~/.config/ags/config.js` with the following contents:
+Start by creating `~/.config/ags/config.js`
 
 ```js
 // ~/.config/ags/config.js
-export default {
+App.config({
     windows: [
         // this is where window definitions will go
     ]
-}
+})
 ```
 
 then run `ags` in the terminal
@@ -45,11 +45,11 @@ const myBar = Widget.Window({
     child: myLabel,
 })
 
-export default { windows: [myBar] }
+App.config({ windows: [myBar] })
 ```
 
 :::tip
-GObject properties can be accessed or set in multiple ways:
+GObject properties can be accessed or set in several ways:
 with `camelCase`, `snake_case`, and `kebab-case`
 
 ```js
@@ -89,12 +89,12 @@ function Bar(monitor = 0) {
     })
 }
 
-export default {
+App.config({
     windows: [
         Bar(0), // can be instantiated for each monitor
         Bar(1),
     ],
-}
+})
 ```
 
 :::note
@@ -103,7 +103,7 @@ if it is passed to `windows` in the exported object.
 
 Calling `Widget.Window` will create and show the window by default.
 It is not necessary to pass a reference to `windows` in
-the exported object, but if it is not,
+the config object, but if it is not,
 it can't be toggled with `ags --toggle-window` or through `App.toggleWindow`
 :::
 

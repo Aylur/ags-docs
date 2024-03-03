@@ -3,14 +3,12 @@ title: Config Object
 description: Exported configuration object
 ---
 
-When you start `ags`, it will try to `import` the `default` `export`
-from a module which defaults to `~/.config/ags/config.js`.
-Even if you mutate this object after initialization,
-the config **will not be reloaded**.
+`App.config` can be called any number of times, the passed
+properties will be applied on top of previous calls
 
 ```js
 // config.js
-export default {
+App.config({
     style: "./style.css",
     icons: "./assests",
     windows: [
@@ -28,10 +26,8 @@ export default {
     onWindowToggled: function (windowName, visible) {
         print(`${windowName} is ${visible}`)
     },
-};
+});
 ```
-
-## The exported config object
 
 | Field | Type | Description |
 |-------|------|-------------|

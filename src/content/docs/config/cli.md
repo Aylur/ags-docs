@@ -20,7 +20,7 @@ OPTIONS:
     -r, --run-js            Execute string as an async function
     -f, --run-file          Execute file as an async function
     -I, --init              Initialize the configuration directory
-    -C, --clear-cache       Remove $HOME/.cache/ags
+    --clear-cache           Remove $HOME/.cache/ags
 
 ```
 

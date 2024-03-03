@@ -66,9 +66,9 @@ const win = Widget.Window({
             response,
         ],
     }),
-});
+})
 
-export default { windows: [win] };
+App.config({ windows: [win] })
 ```
 
 ```hypr

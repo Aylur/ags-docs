@@ -2,8 +2,84 @@
 title: Reactivity
 ---
 
-We have used `poll` and `bind` so far to make widgets
-have content dynamically. There is also `on`, `hook` and `keybind` methods.
+In order for widgets to have dynamic content we pass `Binding`s as properties
+or setup a `hook`.
+A `Binding` is just an object that holds information for widget constructors
+to setup a listener.
+
+## Property Bindings
+
+We can make a `Binding` from a Variable
+
+```js
+const percent = Variable(0.5)
+const slider = Widget.Slider({
+    value: percent.bind(),
+    onChange: ({ value }) => percent.value = value,
+})
+```
+
+From a `Service`
+
+```js
+const { speaker } = await Service.import("audio")
+const slider = Widget.Slider({
+    value: speaker.bind("volume"),
+    onChange: ({ value }) => speaker.volume = value,
+})
+```
+
+Merge any number of `Binding`s into another `Binding`
+
+```js
+const a = Variable(0.3)
+const b = Variable(0.7)
+const merged = Utils.merge([a.bind(), b.bind()], (a, b) => {
+    return a * b
+})
+
+const level = Widget.LevelBar({
+    value: merged
+})
+```
+
+Turn one or multiple Service signals into a `Binding`
+
+```js
+const mpris = await Service.import("mpris")
+
+const label = Widget.Label({
+    label: Utils.watch("initial-label", mpris, "player-added", (busName) => {
+        return `player ${busName} was added`
+    })
+})
+
+const label = Widget.Label({
+    label: Utils.watch("initial-label", [
+        [mpris, "player-added"],
+        [mpris, "player-removed"],
+    ], (busName) => {
+        return `player ${busName} was added or removed`
+    })
+})
+```
+
+A `Binding` can be transformed according to need
+
+```js
+const num = Variable(0)
+
+const label = Widget.Label({
+    // will throw an error, because number is not assignable to string
+    label: num.bind(),
+
+    // will have to be transformed
+    label: num.bind().as(n => n.toString()),
+    label: num.bind().as(String)
+})
+```
+
+## Hooks
 
 You can call these on any Widget that you have a reference on.
 They will return `this` reference, meaning you
@@ -12,20 +88,22 @@ can chain them up in any order in any number.
 ```js
 const widget = Widget()
 widget.hook()
-widget.bind()
+widget.on()
+widget.poll()
+widget.keybind()
 ```
 
 ```js
 const widget = Widget()
     .hook()
-    .bind()
+    .on()
 ```
 
 ```js
 const widget = Widget({
     setup: self => {
-        self.bind()
         self.hook()
+        self.on()
     }
 })
 ```
@@ -33,69 +111,46 @@ const widget = Widget({
 ```js
 const widget = Widget({
     setup: self => self
-        .bind()
         .hook()
+        .on()
 })
 ```
 
-## Hook
+### Hook
 
 `hook` will setup a listener to a `GObject` and will handle disconnection
 when the widget is destroyed. It will connect
 to the `changed` signal by default when not specified otherwise.
 
 ```js
+const battery = await Service.import("battery")
+
 // .hook(GObject, callback, signal?)
 const BatteryPercent = () => Label()
-    .hook(Battery, label => {
-        label.label = `${Battery.percent}%`
-        label.visible = Battery.available
-    }, 'changed')
+    .hook(battery, self => {
+        self.label = `${battery.percent}%`
+        self.visible = battery.available
+    }, "changed")
 ```
 
-## Bind
-
-`bind` can be directly translated to `hook`.
-It will setup a listener based on property changes
+:::caution
+A `hook` callback will be executed on startup.
+If you are connecting to a signal that has an argument
+you will need to check if its defined first
 
 ```js
-const label = Label()
+const mpris = await Service.import("mpris")
+const label = Widget.Label().hook(mpris, (self, busName) => {
+    if (!busName)
+        return // skip startup execution
 
-label.bind(
-    'label', // self property to bind
-    Battery, // GObject to listen to
-    'percent', // target property
-    p => `${p}%`) // optional transform method
-
-// translates to
-label.hook(
-    Battery,
-    self => self['label'] = `${Battery['percent']}%`,
-    'notify::percent')
+    self.label = busName
+}, "player-added")
 ```
 
-It is also possible to call `bind` on [Services](./services)
-and [Variables](./variables) that can be used inside constructors.
+:::
 
-```js
-Label({
-    label: Battery
-        .bind('percent')
-        .as(p => `${p}%`)
-})
-```
-
-```js
-const text = Variable('hello')
-
-Label({
-    label: text
-        .bind()
-        .as(v => `transformed ${v}`)
-})
-```
-
-## On
+### On
 
 `on` is the same as `connect` but instead of the signal handler id,
 it returns a reference to the widget. `on` will setup a callback on a widget signal.
@@ -106,8 +161,8 @@ These two are equivalent
 function MyButton() {
     const self = Widget.Button()
 
-    self.connect('clicked', () => {
-        print(self, 'is clicked')
+    self.connect("clicked", () => {
+        print(self, "is clicked")
     })
 
     return self
@@ -116,12 +171,24 @@ function MyButton() {
 
 ```js
 const MyButton = () => Widget.Button()
-    .on('clicked', self => {
-        print(self, 'is clicked')
+    .on("clicked", self => {
+        print(self, "is clicked")
     })
 ```
 
-## Poll
+:::note
+Most signals like `clicked` are available as a propety on the widget.
+So its rare that `.on` or `.connect` will be needed.
+
+```js
+Widget.Button({
+    on_clicked: self => print(self, "was clicked")
+})
+```
+
+:::
+
+### Poll
 
 Avoid using this as much as possible, using this is considered bad practice.
 
@@ -146,7 +213,7 @@ const MyLabel = () => Widget.Label()
     })
 ```
 
-## Keybind
+### Keybind
 
 It is possible to setup keybindings on focused widgets
 

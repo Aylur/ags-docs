@@ -41,13 +41,10 @@ try {
         '--external', 'resource://*',
         '--external', 'gi://*',
     ])
+    await import(`file://${outdir}/main.js`)
 } catch (error) {
     console.error(error)
 }
-
-const main = await import(`file://${outdir}/main.js`)
-
-export default main.default
 ```
 
 ```ts
@@ -57,7 +54,7 @@ const Bar = (monitor: number) => Widget.Window({
     child: Widget.Label('hello'),
 })
 
-export default {
+App.config({
     windows: [Bar(0)]
-}
+})
 ```

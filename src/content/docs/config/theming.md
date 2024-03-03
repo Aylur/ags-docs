@@ -25,13 +25,13 @@ with the `css` property.
 
 ```js
 // config.js
-export default {
+App.config({
     // this style attribute takes a full path to a css file
     style: '/home/username/.config/ags/style.css',
 
     // or relative to config.js
     style: './style.css',
-}
+})
 ```
 
 ## Css Property on Widgets
@@ -89,10 +89,10 @@ const css = `/tmp/my-style.css`
 // make sure sassc is installed on your system
 Utils.exec(`sassc ${scss} ${css}`)
 
-export default {
+App.config({
     style: css,
     windows: [ /* windows */ ],
-}
+})
 ```
 
 ## Autoreload Css
@@ -117,4 +117,3 @@ Utils.monitorFile(
     },
 )
 ```
-

@@ -9,18 +9,14 @@ Widgets can connect to them and execute a callback function on their signals
 which are usually functions that updates the widget's properties.
 
 ```js
-const widget = Widget.Label()
+Widget.Label({
     // the signal is 'changed' if not specified
     // [Service, callback, signal = 'changed']
-    .hook(someService, function(self, ...args) {
+    setup: self => self.hook(someService, function(self, ...args) {
         // there can be other arguments based on signals
         self.label = 'new label'
     }, 'changed')
-
-    // [prop, Service, targetProp, transform = out => out]
-    .bind('label', SomeService, 'service-prop', function(serviceProp) {
-        return `transformed ${serviceProp}`
-    })
+})
 ```
 
 ```js
@@ -103,5 +99,5 @@ on any kind of state change, unless stated otherwise.
 * [mpris](../../services/mpris)
 * [network](../../services/network)
 * [notifications](../../services/notifications)
-* [power Profle](../../services/power-profiles)
-* [system Tray](../../services/systemtray)
+* [powerprofles](../../services/powerprofiles)
+* [systemtray](../../services/systemtray)
