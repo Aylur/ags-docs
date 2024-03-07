@@ -28,8 +28,6 @@ and use `App.addIcons` or `icons` option in exported object
 
 ```js
 // config.js
-import Gtk from 'gi://Gtk?version=3.0';
-
 App.addIcons(`${App.configDir}/assets`)
 
 Widget.Icon({
