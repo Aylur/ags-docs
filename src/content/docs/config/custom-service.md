@@ -100,6 +100,15 @@ const service = new BrightnessService;
 export default service;
 ```
 
+:::caution
+`Utils.monitorFile` only reports events that a user-space program 
+triggers through the filesystem API. As a result, it does not catch
+remote events that occur on network filesystems.
+Furthermore, most pseudo-filesystems such as `/proc`, `/sys` and `/dev/pts`
+cannot be monitored.
+:::
+
+
 :::note
 For `bind` to work, the property has to be defined in `Service.register`
 :::

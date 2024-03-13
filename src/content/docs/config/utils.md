@@ -131,6 +131,14 @@ const monitor = Utils.monitorFile('/path/to/file', (file, event) => {
 })
 ```
 
+:::caution
+`monitorFile` only reports events that a user-space program 
+triggers through the filesystem API. As a result, it does not catch
+remote events that occur on network filesystems.
+Furthermore, most pseudo-filesystems such as `/proc`, `/sys` and `/dev/pts`
+cannot be monitored.
+:::
+
 ### Canceling the monitor
 
 ```js
