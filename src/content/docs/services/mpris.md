@@ -7,6 +7,10 @@ dependency: `gvfs` for cover art caching
 NixOS: `services.gvfs`
 :::
 
+:::note
+Not every media player supports `position`, `volume` and other functionality. Support varies from player to player. 
+:::
+
 ## signals
 
 * `changed`: emits on any state change except position change
@@ -47,11 +51,11 @@ NixOS: `services.gvfs`
 * `can-go-next`: `boolean`
 * `can-go-prev`: `boolean`
 * `can-play`: `boolean`
-* `shuffle-status`: `boolean | null` null if shuffle is unsupported by the player
-* `loop-status`: `"None" | "Track" | "Playlist" | null` null if shuffle is unsupported by the player
-* `volume`: `number`
-* `length`: `number`
-* `position`: `number`
+* `shuffle-status`: `boolean | null` null if unsupported by the player
+* `loop-status`: `"None" | "Track" | "Playlist" | null` null if unsupported by the player
+* `volume`: `number` -1 if unsupported by the player
+* `length`: `number` -1 if unsupported by the player
+* `position`: `number` -1 if unsupported by the player
 
 ### methods
 
