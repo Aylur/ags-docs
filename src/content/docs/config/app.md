@@ -47,7 +47,7 @@ const label = Widget.Label()
 
 If you want to change the style sheet on runtime
 
-specifing a css file
+specifying a css file
 
 ```js
 App.applyCss('/path/to/file.css');

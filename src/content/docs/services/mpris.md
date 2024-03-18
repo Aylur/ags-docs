@@ -31,7 +31,7 @@ Not every media player supports `position`, `volume` and other functionality. Su
 
 ### signals
 
-* `position`: `(positon: number)` this is signaled when the position is set explicitly
+* `position`: `(position: number)` this is signaled when the position is set explicitly
 * `closed`
 
 ### properties

@@ -75,7 +75,7 @@ class BrightnessService extends Service {
     #onChange() {
         this.#screenValue = Number(Utils.exec('brightnessctl get')) / this.#max;
 
-        // signals have to be explicity emitted
+        // signals have to be explicitly emitted
         this.emit('changed'); // emits "changed"
         this.notify('screen-value'); // emits "notify::screen-value"
 

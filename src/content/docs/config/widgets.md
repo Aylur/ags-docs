@@ -12,7 +12,7 @@ These widgets have some additional properties on top of the base Gtk.Widget ones
 |----------|------|-------------|
 | class-name | `string` | List of class CSS selectors separated by white space. |
 | class-names | `Array<string>` | List of class CSS selectors. |
-| css | `string` | Inline CSS. e.g `label { color: white; }`. If no selector is specifed `*` will be assumed. e.g `color: white;` will be inferred as `*{ color: white; }`. |
+| css | `string` | Inline CSS. e.g `label { color: white; }`. If no selector is specified `*` will be assumed. e.g `color: white;` will be inferred as `*{ color: white; }`. |
 | hpack | `string` | Horizontal alignment, behaves like `halign`. `halign` takes an enum, but for convenience `hpack` can be given with a string, so one of `"start"`, `"center"`, `"end"`, `"fill"`. |
 | vpack | `string` | Vertical alignment. |
 | cursor | `string` | Cursor style when hovering over widgets that have hover states, e.g it won't work on labels. [list of valid values](https://docs.gtk.org/gdk3/ctor.Cursor.new_from_name.html). |
@@ -27,7 +27,7 @@ Some common Gtk.Widget properties you might want for example
 | vexpand | boolean |  Expand vertically. |
 | sensitive | boolean | Makes the widget interactable. |
 | tooltip-text | string | Tooltip popup when the widget is hovered over. |
-| visible | boolean | Visibility of the widget. Setting this to `false` doesn't have any effect if the parent container calls `show_all()`, for example when you set a Box's childen dynamically. |
+| visible | boolean | Visibility of the widget. Setting this to `false` doesn't have any effect if the parent container calls `show_all()`, for example when you set a Box's children dynamically. |
 
 If you don't want to mutate the `classNames` array,
 there is `toggleClassName`: `(name: string, enable: boolean) => void`

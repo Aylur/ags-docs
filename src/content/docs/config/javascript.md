@@ -70,7 +70,7 @@ while (i < 5) {
 for loop
 
 ```js
-for (let i = 0; 0 < 5; i++) {
+for (let i = 0; i < 5; i++) {
     print(i)
 }
 ```
@@ -154,7 +154,7 @@ function fn({ one, two }) {
 }
 
 fn({ one: 'hello', two: 'mom' }) // hello, mom
-fn() // throws error because undefined can't be destructued
+fn() // throws error because undefined can't be destructed
 ```
 
 ## Modules
@@ -163,7 +163,7 @@ exporting
 
 ```js
 export default 'hello'
-export const hi = 'mom'
+export const string = 'mom'
 export function fn(...params) {
     print(...params)
 }

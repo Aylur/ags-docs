@@ -10,7 +10,7 @@ properties will be applied on top of previous calls
 // config.js
 App.config({
     style: "./style.css",
-    icons: "./assests",
+    icons: "./assets",
     windows: [
         // Array<Gtk.Window>
     ],
