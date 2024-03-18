@@ -58,7 +58,7 @@ function CounterButton(({ color = 'aqua', ...rest })) {
     return Widget.Button({
         ...rest, // spread passed parameters
         child: label,
-        onClicked: () => cound++,
+        onClicked: () => count++,
     })
 }
 

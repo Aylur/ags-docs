@@ -1,6 +1,6 @@
 ---
 title: Services
-description: Builtig services to query system information
+description: Builtin services to query system information
 ---
 
 A Service is an instance of a [GObject.Object](https://gjs-docs.gnome.org/gobject20~2.0/gobject.object)
@@ -47,7 +47,7 @@ someService.connect('changed', (service, ...args) => {
 
 :::caution
 If you reference a widget inside `someService.connect`, make sure to
-handle disconnection aswell if that widget is destroyed
+handle disconnection as well if that widget is destroyed
 :::
 
 ## List of builtin services

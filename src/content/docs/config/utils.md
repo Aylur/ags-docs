@@ -246,12 +246,12 @@ on NixOS make sure you have `security.pam.services.ags = {}` in `configuration.n
 
 ```js
 Utils.authenticate('password')
-    .then(() => print('authentication sucessful'))
-    .catch(err => logError(err, 'unsucessful'))
+    .then(() => print('authentication successful'))
+    .catch(err => logError(err, 'unsuccessful'))
 
 Utils.authenticateUser("username", "password")
-    .then(() => print("authentication sucessful"))
-    .catch(err => logError(err, 'unsucessful'))
+    .then(() => print("authentication successful"))
+    .catch(err => logError(err, 'unsuccessful'))
 ```
 
 ## Send Notifications

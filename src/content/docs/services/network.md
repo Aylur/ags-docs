@@ -3,7 +3,7 @@ title: Network
 ---
 
 :::note
-package dependancy: `network-manager`
+package dependency: `network-manager`
 This service is somewhat incomplete, feel free to open a PR to improve it
 :::
 

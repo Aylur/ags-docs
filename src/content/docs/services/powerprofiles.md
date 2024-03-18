@@ -3,7 +3,7 @@ title: Power Profiles
 ---
 
 :::note
-package dependancy: `power-profiles-daemon`
+package dependency: `power-profiles-daemon`
 on NixOS enable `services.power-profiles-daemon`
 :::
 

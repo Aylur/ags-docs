@@ -3,7 +3,7 @@ title: Bluetooth
 ---
 
 :::note
-package dependancy: `gnome-bluetooth-3.0`
+package dependency: `gnome-bluetooth-3.0`
 for the battery percentage to work, make sure you have `Experimental = true` in `/etc/bluetooth/main.conf`
 :::
 
