@@ -24,6 +24,7 @@ This service is somewhat incomplete, feel free to open a PR to improve it
 
 * `ssid`: `string`
 * `strength`: `number` 0..100
+* `frequency`: `number`
 * `internet`: `"connected" | "connecting" | "disconnected"`
 * `enabled`: `boolean`
 * `access-points`: `AccessPoint`
@@ -47,6 +48,7 @@ meaning you can't bind to it or use notify::prop signal
 * `ssid`: `string`
 * `active`: `boolean`
 * `strength`: `number`
+* `frequency`: `number`
 * `iconName`: `string` icon name representing its signal strength
 
 ## Wired
