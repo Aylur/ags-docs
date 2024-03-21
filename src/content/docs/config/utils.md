@@ -201,7 +201,7 @@ when the widget is destroyed
 
 ```js
 const widget = Widget.Label()
-const id = Utils.interval(1000, () => {}, label)
+const id = Utils.interval(1000, () => {}, widget)
 widget.destroy()
 ```
 
