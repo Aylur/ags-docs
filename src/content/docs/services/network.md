@@ -80,10 +80,10 @@ const WiredIndicator = () => Widget.Icon({
 })
 
 const NetworkIndicator = () => Widget.Stack({
-    items: [
-        ['wifi', WifiIndicator()],
-        ['wired', WiredIndicator()],
-    ],
+    children: {
+        wifi: WifiIndicator(),
+        wired, WiredIndicator(),
+    },
     shown: network.bind('primary').as(p => p || 'wifi'),
 })
 ```
