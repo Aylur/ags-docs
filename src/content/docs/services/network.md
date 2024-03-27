@@ -13,6 +13,7 @@ This service is somewhat incomplete, feel free to open a PR to improve it
 * `primary`: `"wifi" | "wired"`
 * `wired`: `Wired`
 * `wifi`: `Wifi`
+* `vpn`: `Vpn`
 
 ## methods
 
@@ -57,6 +58,36 @@ meaning you can't bind to it or use notify::prop signal
 * `state`: `"enabled" | "disabled" | "unknown"`
 * `state`: `string`: [NM.DeviceState](https://gjs-docs.gnome.org/nm10~1.0/nm.devicestate) as lowercase string
 * `icon-name`: `string`
+
+## Vpn
+
+### signals
+
+* `connection-added`: `(uuid: string)`
+* `connection-removed`: `(uuid: string)`
+
+### properties
+
+* `connections`: `VpnConnection[]`
+* `activated-connections`: `VpnConnection[]`
+
+### methods
+
+* `getConnection`: `(uuid: string) => VpnConnection`
+
+## VpnConnection
+
+### properties
+
+* `uuid`: `string`
+* `id`: `string`: The unique name of the connection
+* `state`: `"connected" | "connecting" | "disconnecting" | "disconnected"`
+* `vpn-state`: `"unknown" | "prepare" | "needs_auth" | "connect" | "ip_config" | "activated" | "failed" | "disconnected"`
+* `icon-name`: `string`
+
+### methods
+
+* `setConnection`: `(connect: boolean) => void`
 
 ## Example Widget
 
