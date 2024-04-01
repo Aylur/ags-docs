@@ -401,7 +401,7 @@ const label = Widget.Label({
 })
 
 // shorthand for { label: 'hello' }
-Widget.Label('label')
+Widget.Label('hello')
 ```
 
 ### LevelBar
