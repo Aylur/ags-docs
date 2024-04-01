@@ -47,7 +47,7 @@ const widgets = [
     'MenuItem',
     'OverLay',
     'ProgressBar',
-    'Reveale',
+    'Revealer',
     'Scrollable',
     'Separator',
     'Slider',
