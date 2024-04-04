@@ -19,15 +19,108 @@ These widgets have some additional properties on top of the base Gtk.Widget ones
 | attribute | `any` | Any additional attributes on `self` |
 | setup | `(self) => void` | A callback function to execute on `self` |
 
+## Setup property
+
+`setup` is a convenience prop to have imperative code inside declarative blocks
+
+without `setup`
+
+```js
+function MyWidget() {
+    const self = Widget.Button()
+    // imperative code
+    return self
+}
+```
+
+using `setup`
+
+```js
+const MyWidget = () => Widget.Button({
+    setup: self => {
+        // imperative code
+    }
+})
+```
+
+## Attribute property
+
+for attaching additional attributes on widgets `Object.assign` or
+the `attribute` property can be used
+
+```js
+function MyWidget() {
+    const self = Widget.Button()
+    return Object.assign(self, {
+        myPrimitiveProperty: "anything",
+        myObjectProperty: {
+            something: "anything",
+            key: "value",
+        },
+    })
+}
+
+const mywidget = MyWidget()
+console.log(mywidget.myPrimitiveProperty) // anything
+console.log(mywidget.myObjectProperty) // { something: "anything", key: "value" }
+```
+
+using `attribute` has the benefit of it being a gobject
+which means it will signal `notify::attribute` when it changes
+
+```js
+const MyWidget = () => Widget.Button({
+    attribute: "anything",
+    setup: self => self.on("notify::attribute", () => {
+        console.log(mywidget.attribute)
+    }),
+})
+
+const mywidget = MyWidget()
+console.log(mywidget.attribute) // anything
+
+// this line will invoke the above console.log in the setup
+mywidget.attribute = "something else"
+```
+
+keep in mind that `attribute` will only signal if *its value* changes
+
+```js
+const MyWidget = () => Widget.Button({
+    attribute: {
+        someKey: "value",
+        key: "value",
+    },
+    setup: self => self.on("notify::attribute", () => {
+        console.log(mywidget.attribute)
+    })
+})
+
+const mywidget = MyWidget()
+
+// this line won't signal, because the attribute is still the same object
+mywidget.attribute.key = "new value"
+
+// to have it signal, assign a new object to it
+mywidget.attribute = {
+    ...mywidget.attribute,
+    key: "new value"
+}
+```
+
+## Common Gtk properties
+
 Some common Gtk.Widget properties you might want for example
 
 | Property | Type | Description |
 |----------|------|-------------|
-| hexpand | boolean  | Expand horizontally. |
-| vexpand | boolean |  Expand vertically. |
-| sensitive | boolean | Makes the widget interactable. |
-| tooltip-text | string | Tooltip popup when the widget is hovered over. |
-| visible | boolean | Visibility of the widget. Setting this to `false` doesn't have any effect if the parent container calls `show_all()`, for example when you set a Box's children dynamically. |
+| hexpand | `boolean`  | Expand horizontally. |
+| vexpand | `boolean` |  Expand vertically. |
+| sensitive | `boolean` | Makes the widget interactable. |
+| tooltip-text | `string` | Tooltip popup when the widget is hovered over. |
+| visible | `boolean` | Visibility of the widget. Setting this to `false` doesn't have any effect if the parent container calls `show_all()`, for example when you set a Box's children dynamically. |
+
+## toggleClassName
 
 If you don't want to mutate the `classNames` array,
 there is `toggleClassName`: `(name: string, enable: boolean) => void`
@@ -54,15 +147,15 @@ the toplevel widget that holds everything
 
 | Property | Type | Description |
 |----------|------|-------------|
-| child | Widget | |
-| name | string | Name of the window. This has to be unique, if you pass it in config. This will also be the name of the layer. |
-| anchor | string[] | Valid values are `"top"`, `"bottom"`, `"left"`, `"right"`. Anchor points of the window. Leave it empty to make it centered. |
-| exclusivity | string | Specify if the compositor should reserve space for the window automatically or how the window should interact with windows that do. Possible values: `exclusive` (space should be reserved), `normal` (the window should move if occluding another), `ignore` (the window should not be moved). Default: `normal`. |
-| layer | string | Valid values are `"overlay"`, `"top"`, `"bottom"`, `"background"`. It is `"top"` by default. |
-| margins | number[] | Corresponds to CSS notation, e.g `[0, 6]` would have 0 margin on the top and bottom and would have 6 on the right and left. |
-| monitor | number | Which monitor to show the window on. If it is left undefined the window will show on the currently focused monitor. |
-| keymode | string | Valid values are `"none"`, `"on-demand"`: can receive keyboard input if focused, `"exclusive"`: steal keyboard input on top and overlay layers |
-| gdkmonitor | Gdk.Monitor | alternative to `monitor` |
+| child | `Widget` | |
+| name | `string` | Name of the window. This has to be unique, if you pass it in config. This will also be the name of the layer. |
+| anchor | `string[]` | Valid values are `"top"`, `"bottom"`, `"left"`, `"right"`. Anchor points of the window. Leave it empty to make it centered. |
+| exclusivity | `string` | Specify if the compositor should reserve space for the window automatically or how the window should interact with windows that do. Possible values: `exclusive` (space should be reserved), `normal` (the window should move if occluding another), `ignore` (the window should not be moved). Default: `normal`. |
+| layer | `string` | Valid values are `"overlay"`, `"top"`, `"bottom"`, `"background"`. It is `"top"` by default. |
+| margins | `number[]` | Corresponds to CSS notation, e.g `[0, 6]` would have 0 margin on the top and bottom and would have 6 on the right and left. |
+| monitor | `number` | Which monitor to show the window on. If it is left undefined the window will show on the currently focused monitor. |
+| keymode | `string` | Valid values are `"none"`, `"on-demand"`: can receive keyboard input if focused, `"exclusive"`: steal keyboard input on top and overlay layers |
+| gdkmonitor | `Gdk.Monitor` | alternative to `monitor` |
 
 ```js
 const window = Widget.Window({
@@ -85,8 +178,8 @@ the main container widget
 
 | Property | Type | Description |
 |----------|------|-------------|
-| vertical | bool | setting `vertical: true` is the same as `orientation: 1` |
-| children | Widget[] | List of child widgets. |
+| vertical | `bool` | setting `vertical: true` is the same as `orientation: 1` |
+| children | `Widget[]` | List of child widgets. |
 
 ```js
 const box = Widget.Box({
@@ -107,7 +200,7 @@ subclass of [Gtk.Button](https://gjs-docs.gnome.org/gtk30~3.0/gtk.button)
 
 | Property | Type |
 |----------|------|
-| child | Widget |
+| child | `Widget` |
 | on-clicked | `() => void` |
 | on-primary-click | `(event: Gdk.Event) => boolean` |
 | on-secondary-click | `(event: Gdk.Event) => boolean` |
@@ -154,14 +247,14 @@ const calendar = Widget.Calendar({
 
 ### CenterBox
 
-subclass of Box
+subclass of [Gtk.Box](https://gjs-docs.gnome.org/gtk30~3.0/gtk.box)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| vertical | bool | setting `vertical: true` is the same as `orientation: 1` |
-| start-widget | Gtk.Widget | |
-| center-widget | Gtk.Widget | |
-| end-widget | Gtk.Widget | |
+| vertical | `bool` | setting `vertical: true` is the same as `orientation: 1` |
+| start-widget | `Gtk.Widget` | |
+| center-widget | `Gtk.Widget` | |
+| end-widget | `Gtk.Widget` | |
 
 ```js
 const centerBox = Widget.CenterBox({
@@ -179,11 +272,11 @@ subclass of [Gtk.Bin](https://gjs-docs.gnome.org/gtk30~3.0/gtk.bin)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| start-at | number | Number between 0 and 1, e.g 0.75 is the top |
-| end-at | number | Number between 0 and 1 |
-| inverted | boolean | |
-| rounded | boolean | Wether the progress bar should have rounded ends |
-| value | number | Number between 0 and 1 |
+| start-at | `number` | Number between 0 and 1, e.g 0.75 is the top |
+| end-at | `number` | Number between 0 and 1 |
+| inverted | `boolean` | |
+| rounded | `boolean` | Wether the progress bar should have rounded ends |
+| value | `number` | Number between 0 and 1 |
 
 ```js
 const progress = Widget.CircularProgress({
@@ -269,7 +362,7 @@ subclass of [Gtk.EventBox](https://gjs-docs.gnome.org/gtk30~3.0/gtk.eventbox)
 
 | Property | Type |
 |----------|------|
-| child | Widget |
+| child | `Widget` |
 | on-primary-click | `(event: Gdk.Event) => boolean` |
 | on-secondary-click | `(event: Gdk.Event) => boolean` |
 | on-middle-click | `(event: Gdk.Event) => boolean` |
@@ -356,8 +449,8 @@ subclass of [Gtk.Image](https://gjs-docs.gnome.org/gtk30~3.0/gtk.image)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| icon | string | Name of an icon or path to a file |
-| size | number | Forced size |
+| icon | `string` | Name of an icon or path to a file |
+| size | `number` | Forced size |
 
 ```js
 Widget.Icon({ icon: 'dialog-information-symbolic' })
@@ -386,8 +479,8 @@ subclass of [Gtk.Label](https://gjs-docs.gnome.org/gtk30~3.0/gtk.label)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| justification | string | Valid values are `"left"`, `"center"`, `"right"`, `"fill"`. Same as `justify` but represented as a string instead of enum. |
-| truncate | string | Valid values are `"none"`, `"start"`, `"middle"`, `"end"`. Same as `ellipsize` but represented as a string instead of enum. |
+| justification | `string` | Valid values are `"left"`, `"center"`, `"right"`, `"fill"`. Same as `justify` but represented as a string instead of enum. |
+| truncate | `string` | Valid values are `"none"`, `"start"`, `"middle"`, `"end"`. Same as `ellipsize` but represented as a string instead of enum. |
 
 ```js
 const label = Widget.Label({
@@ -410,8 +503,8 @@ subclass of [Gtk.LevelBar](https://gjs-docs.gnome.org/gtk30~3.0/gtk.levelbar)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| bar-mode | string | Valid values are `"continuous"`, `"discrete"`. Same as `mode` but represented as a string instead of enum. |
-| vertical | bool | setting `vertical: true` is the same as `orientation: 1` |
+| bar-mode | `string` | Valid values are `"continuous"`, `"discrete"`. Same as `mode` but represented as a string instead of enum. |
+| vertical | `bool` | setting `vertical: true` is the same as `orientation: 1` |
 
 ```js
 const continuous = Widget.LevelBar({
@@ -450,7 +543,7 @@ subclass of [Gtk.Menu](https://gjs-docs.gnome.org/gtk30~3.0/gtk.menu)
 
 | Property | Type |
 |----------|------|
-| children | MenuItem[] |
+| children | `MenuItem[]` |
 | on-popup | `(flipped_rect: void, final_rect: void, flipped_x: boolean, flipped_y: boolean) => void` |
 | on-move-scroll | `(scroll_type: Gtk.ScrollType) => void` |
 
@@ -495,7 +588,7 @@ subclass of [Gtk.MenuItem](https://gjs-docs.gnome.org/gtk30~3.0/gtk.menuitem)
 
 | Property | Type |
 |----------|------|
-| child | Widget |
+| child | `Widget` |
 | on-activate | `() => boolean` |
 | on-select | `() => boolean` |
 | on-deselect | `() => boolean` |
@@ -521,9 +614,9 @@ top of each other and won't render them outside the container.
 
 | Property | Type | Description|
 |----------|------|------------|
-| child | Widget | Child which will determine the size of the overlay |
-| overlays | Widget[] | Overlayed children |
-| pass-through | boolean | Whether the overlay childs should pass the input through |
+| child | `Widget` | Child which will determine the size of the overlay |
+| overlays | `Widget[]` | Overlayed children |
+| pass-through | `boolean` | Whether the overlay childs should pass the input through |
 
 ### ProgressBar
 
@@ -535,8 +628,8 @@ You might want to use `LevelBar` instead.
 
 | Property | Type | Description |
 |----------|------|-------------|
-| vertical | bool | Setting `vertical: true` is the same as `orientation: 1` |
-| value | number | Same as `ProgressBar.fraction` |
+| vertical | `bool` | Setting `vertical: true` is the same as `orientation: 1` |
+| value | `number` | Same as `ProgressBar.fraction` |
 
 ```js
 const progressbar = Widget.ProgressBar({
@@ -550,8 +643,8 @@ subclass of [Gtk.Revealer](https://gjs-docs.gnome.org/gtk30~3.0/gtk.revealer)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| child | Widget | |
-| transition | string | Valid values are `"none"`, `"crossfade"`, `"slide_left"`, `"slide_right"`, `"slide_down"`, `"slide_up"`. This is `transitionType` represented as a string instead of enum. |
+| child | `Widget` | |
+| transition | `string` | Valid values are `"none"`, `"crossfade"`, `"slide_left"`, `"slide_right"`, `"slide_down"`, `"slide_up"`. This is `transitionType` represented as a string instead of enum. |
 
 ```js
 const revealer = Widget.Revealer({
@@ -571,9 +664,9 @@ subclass of [Gtk.ScrolledWindow](https://gjs-docs.gnome.org/gtk30~3.0/gtk.scroll
 
 | Property | Type | Description |
 |----------|------|-------------|
-| child | Widget | |
-| hscroll | string | Valid values are `"always`, `"automatic"`, `"external"`, `"never"`. |
-| vscroll | string | Valid values are `"always`, `"automatic"`, `"external"`, `"never"`. |
+| child | `Widget` | |
+| hscroll | `string` | Valid values are `"always`, `"automatic"`, `"external"`, `"never"`. |
+| vscroll | `string` | Valid values are `"always`, `"automatic"`, `"external"`, `"never"`. |
 
 ```js
 const scrollable = Widget.Scrollable({
@@ -592,7 +685,7 @@ subclass of [Gtk.Separator](https://gjs-docs.gnome.org/gtk30~3.0/gtk.separator)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| vertical | bool | Setting `vertical: true` is the same as `orientation: 1` |
+| vertical | `bool` | Setting `vertical: true` is the same as `orientation: 1` |
 
 ```js
 const separator = Widget.Separator({
@@ -606,11 +699,11 @@ subclass of [Gtk.Scale](https://gjs-docs.gnome.org/gtk30~3.0/gtk.scale)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| vertical | bool | Setting `vertical: true` is the same as `orientation: 1` |
-| value | number | |
-| min | number | |
-| max | number | |
-| marks | tuple or number | where tuple is [number, string?, Position?], Position is `"top"`, `"left`, `"right`, `"bottom"` |
+| vertical | `bool` | Setting `vertical: true` is the same as `orientation: 1` |
+| value | `number` | |
+| min | `number` | |
+| max | `number` | |
+| marks | `tuple` or `number` | where tuple is `[number, string?, Position?]`, Position is `"top"`, `"left`, `"right`, `"bottom"` |
 | on-change | `(event: Gdk.Event) => void` | |
 
 ```js
@@ -664,9 +757,9 @@ subclass of [Gtk.Stack](https://gjs-docs.gnome.org/gtk30~3.0/gtk.stack)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| children | \{string, Widget\} | name: Widget key-value pairs |
-| shown | string | Name of the widget to show. This can't be set on construction, instead the first given widget will be shown. |
-| transition | string | `transitionType` represented as a string. Valid values are `none`, `crossfade`, `slide_right`, `slide_left`, `slide_up`, `slide_down`, `slide_left_right`, `slide_up_down`, `over_up`, `over_down`, `over_left`, `over_right`, `under_up`, `under_down`, `under_left`, `under_right`, `over_up_down`, `over_down_up`, `over_left_right`, `over_right_left`
+| children | `{ [string]: Widget }` | name, Widget key-value pairs |
+| shown | `string` | Name of the widget to show. This can't be set on construction, instead the first given widget will be shown. |
+| transition | `string` | `transitionType` represented as a string. Valid values are `none`, `crossfade`, `slide_right`, `slide_left`, `slide_up`, `slide_down`, `slide_left_right`, `slide_up_down`, `over_up`, `over_down`, `over_left`, `over_right`, `under_up`, `under_down`, `under_left`, `under_right`, `over_up_down`, `over_down_up`, `over_left_right`, `over_right_left`
 
 ```js
 const stack = Widget.Stack({
