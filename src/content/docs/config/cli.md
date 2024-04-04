@@ -19,7 +19,7 @@ OPTIONS:
     -t, --toggle-window     Show or hide a window
     -r, --run-js            Execute string as an async function
     -f, --run-file          Execute file as an async function
-    -I, --init              Initialize the configuration directory
+    --init                  Initialize the configuration directory
     --clear-cache           Remove $HOME/.cache/ags
 
 ```
