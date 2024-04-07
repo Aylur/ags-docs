@@ -9,6 +9,7 @@ title: Applications
 ## methods
 
 * `query`: `(string) => App[]` takes a string and returns a list of apps that match one of the following: app name, app description, executable name or .desktop file.
+* `reload`: `() => void` explicitly reload the application `list`.
 
 ## properties
 
