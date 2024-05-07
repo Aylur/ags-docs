@@ -7,6 +7,24 @@ or setup a `hook`.
 A `Binding` is just an object that holds information for widget constructors
 to setup a listener.
 
+:::caution
+`Binding` is a regular JavaScript object,
+it cannot be used in template strings
+
+```js
+const label = Variable("hello")
+
+Label({
+    // [Object object] world
+    label: `${label.bind()} world`,
+
+    // hello world
+    label: label.bind().as(hello => `${hello} world`)
+})
+```
+
+:::
+
 ## Property Bindings
 
 We can make a `Binding` from a Variable
