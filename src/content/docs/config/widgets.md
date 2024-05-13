@@ -412,7 +412,7 @@ const fixed = Widget.Fixed({
 
 ### FlowBox
 
-subclass of [Gtk.FlowBox](https://gjs-docs.gnome.org/gtk30~3.0/gtk.FlowBox)
+subclass of [Gtk.FlowBox](https://gjs-docs.gnome.org/gtk30~3.0/gtk.flowbox)
 
 :::note
 `Gtk.FlowBox` is not yet subclassed to be declarative and doesn't have
@@ -522,7 +522,7 @@ const discrete = Widget.LevelBar({
 
 ### ListBox
 
-subclass of [Gtk.ListBox](https://gjs-docs.gnome.org/gtk30~3.0/gtk.ListBox)
+subclass of [Gtk.ListBox](https://gjs-docs.gnome.org/gtk30~3.0/gtk.listbox)
 
 :::note
 `Gtk.ListBox` is not yet subclassed to be declarative and doesn't have
@@ -672,7 +672,7 @@ subclass of [Gtk.ScrolledWindow](https://gjs-docs.gnome.org/gtk30~3.0/gtk.scroll
 const scrollable = Widget.Scrollable({
     hscroll: 'always',
     vscroll: 'never',
-    style: 'min-width: 20px;',
+    css: 'min-width: 20px;',
     child: Widget.Label('Lorem ipsum dolor sit amet, ' +
         'officia excepteur ex fugiat reprehenderit enim ' +
         'labore culpa sint ad nisi Lorem pariatur mollit'),
@@ -699,7 +699,6 @@ subclass of [Gtk.Scale](https://gjs-docs.gnome.org/gtk30~3.0/gtk.scale)
 
 | Property | Type | Description |
 |----------|------|-------------|
-| vertical | `bool` | Setting `vertical: true` is the same as `orientation: 1` |
 | value | `number` | |
 | min | `number` | |
 | max | `number` | |
@@ -709,7 +708,6 @@ subclass of [Gtk.Scale](https://gjs-docs.gnome.org/gtk30~3.0/gtk.scale)
 ```js
 Widget.Slider({
     onChange: ({ value }) => print(value),
-    vertical: true,
     value: 0,
     min: 0,
     max: 1,
@@ -730,12 +728,12 @@ subclass of [Gtk.SpinButton](https://gjs-docs.gnome.org/gtk30~3.0/gtk.spinbutton
 |----------|------|
 | on-value-changed | `() => void` |
 | range | `[min: number, max: number]` |
-| incements | `[step: number, page: number]` |
+| increments | `[step: number, page: number]` |
 
 ```js
 const spinbutton = Widget.SpinButton({
     range: [0, 100],
-    incements: [1, 5],
+    increments: [1, 5],
     onValueChanged: ({ value }) => {
         print(value)
     },
