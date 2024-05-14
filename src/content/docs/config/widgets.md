@@ -699,6 +699,7 @@ subclass of [Gtk.Scale](https://gjs-docs.gnome.org/gtk30~3.0/gtk.scale)
 
 | Property | Type | Description |
 |----------|------|-------------|
+| vertical | `bool` | Setting `vertical: true` is the same as `orientation: 1` |
 | value | `number` | |
 | min | `number` | |
 | max | `number` | |
@@ -708,6 +709,7 @@ subclass of [Gtk.Scale](https://gjs-docs.gnome.org/gtk30~3.0/gtk.scale)
 ```js
 Widget.Slider({
     onChange: ({ value }) => print(value),
+    vertical: true,
     value: 0,
     min: 0,
     max: 1,
