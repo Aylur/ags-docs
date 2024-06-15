@@ -99,5 +99,5 @@ on any kind of state change, unless stated otherwise.
 * [mpris](../../services/mpris)
 * [network](../../services/network)
 * [notifications](../../services/notifications)
-* [powerprofles](../../services/powerprofiles)
+* [powerprofiles](../../services/powerprofiles)
 * [systemtray](../../services/systemtray)
