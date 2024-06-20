@@ -100,7 +100,7 @@ function writeFile(string: string, path: string): Promise<Gio.File>
 ```js
 const contents = Utils.readFile('/path/to/file')
 
-Utils.writeFileSync('/path/to/file', 'some content')
+Utils.writeFileSync('some content', '/path/to/file')
 ```
 
 ### Asynchronously
