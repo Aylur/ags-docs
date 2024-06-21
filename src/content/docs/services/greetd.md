@@ -54,6 +54,7 @@ const response = Widget.Label()
 const win = Widget.Window({
     css: 'background-color: transparent;',
     anchor: ['top', 'left', 'right', 'bottom'],
+    keymode: 'exclusive',
     child: Widget.Box({
         vertical: true,
         hpack: 'center',
