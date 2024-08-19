@@ -14,7 +14,7 @@ title: Notifications
 * `forceTimeout`: `boolean`: Force every notifications timeout to be `popupTimeout`. false by default.
 * `cacheActions`: `boolean`: Action buttons don't work if the sender process is no longer running. So on reboot they won't work. false by default
 * `clearDelay`: `number`: milliseconds to wait after each notification closed when calling `clear`. This is to prevent crashes when its not handled by the user.
-* `dnd`: `boolean`: do no disturb, it will permit the notification to be added to Notifications.popups
+* `dnd`: `boolean`: do not disturb, it will permit the notification to be added to Notifications.popups
 * `popups`: `Notification[]`
 * `notifications`: `Notification[]`
 
