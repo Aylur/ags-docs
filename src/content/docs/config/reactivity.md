@@ -195,7 +195,7 @@ const MyButton = () => Widget.Button()
 ```
 
 :::note
-Most signals like `clicked` are available as a propety on the widget.
+Most signals like `clicked` are available as a property on the widget.
 So its rare that `.on` or `.connect` will be needed.
 
 ```js
