@@ -762,14 +762,17 @@ subclass of [Gtk.Stack](https://gjs-docs.gnome.org/gtk30~3.0/gtk.stack)
 | transition | `string` | `transitionType` represented as a string. Valid values are `none`, `crossfade`, `slide_right`, `slide_left`, `slide_up`, `slide_down`, `slide_left_right`, `slide_up_down`, `over_up`, `over_down`, `over_left`, `over_right`, `under_up`, `under_down`, `under_left`, `under_right`, `over_up_down`, `over_down_up`, `over_left_right`, `over_right_left`
 
 ```js
+const childToShow = Variable('child2')
 const stack = Widget.Stack({
     children: {
         'child1': Widget.Label('first child'),
         'child2': Widget.Label('second child'),
     },
-    shown: 'child2',
+    shown: childToShow.bind(),
 })
 ```
+> [!IMPORTANT]  
+> The `shown` property must be binded to a variable. It won't work if it's statically assigned because of how the GObject Constructor [works](https://github.com/Aylur/ags/issues/359#issuecomment-2007995481).
 
 ### Switch
 
