@@ -771,8 +771,9 @@ const stack = Widget.Stack({
     shown: childToShow.bind(),
 })
 ```
-> [!IMPORTANT]  
-> The `shown` property must be binded to a variable. It won't work if it's statically assigned because of how the GObject Constructor [works](https://github.com/Aylur/ags/issues/359#issuecomment-2007995481).
+:::note[Important]
+The `shown` property must be binded to a variable. It won't work if it's statically assigned because of how the GObject Constructor [works](https://github.com/Aylur/ags/issues/359#issuecomment-2007995481).
+:::
 
 ### Switch
 
