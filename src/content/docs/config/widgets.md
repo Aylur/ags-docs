@@ -577,7 +577,7 @@ any additional properties/methods on top of the base Gtk widget.
 ```js
 const menubar = Widget.MenuBar({
     setup: self => {
-        self.append(Widget.Mene())
+        self.append(Widget.Menu())
     }
 })
 ```
