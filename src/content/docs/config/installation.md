@@ -15,7 +15,7 @@ you can try it without installing
 nix run github:Aylur/ags
 ```
 
-for activating binary add this lines to your configuration:
+for activating binary cache add this lines to your configuration:
 
 ```nix
 {
