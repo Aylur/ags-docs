@@ -1,5 +1,7 @@
 ---
 title: Reactivity
+banner:
+  content: You are looking at the legacy documentation of AGS v1. Go to <a href="https://aylur.github.io/ags/">aylur.github.io/ags</a> for AGS v2.
 ---
 
 In order for widgets to have dynamic content we pass `Binding`s as properties

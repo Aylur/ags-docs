@@ -1,6 +1,8 @@
 ---
 title: App
 description: The Gtk.Application Instance
+banner:
+  content: You are looking at the legacy documentation of AGS v1. Go to <a href="https://aylur.github.io/ags/">aylur.github.io/ags</a> for AGS v2.
 ---
 
 This is the main `Gtk.Application` instance that is running.

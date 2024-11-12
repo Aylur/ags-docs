@@ -1,6 +1,8 @@
 ---
 title: JavaScript
 description: 5 minute crash course for JavaScript
+banner:
+  content: You are looking at the legacy documentation of AGS v1. Go to <a href="https://aylur.github.io/ags/">aylur.github.io/ags</a> for AGS v2.
 ---
 
 If you don't know any JavaScript, this is a quick 5 minute course explaining most things you will need to understand.

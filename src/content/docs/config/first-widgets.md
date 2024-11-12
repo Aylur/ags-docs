@@ -1,6 +1,8 @@
 ---
 title: Your First Widget
 description: Starting point to understanding how AGS works
+banner:
+  content: You are looking at the legacy documentation of AGS v1. Go to <a href="https://aylur.github.io/ags/">aylur.github.io/ags</a> for AGS v2.
 ---
 
 Start by creating `~/.config/ags/config.js`

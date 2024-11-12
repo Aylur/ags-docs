@@ -1,6 +1,8 @@
 ---
 title: Greetd
 description: Login Manager
+banner:
+  content: You are looking at the legacy documentation of AGS v1. Go to <a href="https://aylur.github.io/ags/">aylur.github.io/ags</a> for AGS v2.
 ---
 
 Look up how to enable and configure greetd for your distro.

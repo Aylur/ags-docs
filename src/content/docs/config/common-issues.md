@@ -1,6 +1,8 @@
 ---
 title: Common Issues
 description: Common Issues and Tips & Tricks
+banner:
+  content: You are looking at the legacy documentation of AGS v1. Go to <a href="https://aylur.github.io/ags/">aylur.github.io/ags</a> for AGS v2.
 ---
 
 ## Window doesn't show up
@@ -37,9 +39,11 @@ Widget.Icon({
 ```
 
 ## GtkWindow is not a layer surface
+
 If `Widget.Window` shows as up as a regular window,
 it usually means ags is running in xwayland.
 Try running `ags` from a non xwayland terminal, or try
+
 ```bash
 env GDK_BACKEND=wayland ags
 ```

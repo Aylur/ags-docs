@@ -1,6 +1,8 @@
 ---
 title: Config Object
 description: Exported configuration object
+banner:
+  content: You are looking at the legacy documentation of AGS v1. Go to <a href="https://aylur.github.io/ags/">aylur.github.io/ags</a> for AGS v2.
 ---
 
 `App.config` can be called any number of times, the passed

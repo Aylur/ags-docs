@@ -1,5 +1,7 @@
 ---
 title: Mpris
+banner:
+  content: You are looking at the legacy documentation of AGS v1. Go to <a href="https://aylur.github.io/ags/">aylur.github.io/ags</a> for AGS v2.
 ---
 
 :::note
@@ -8,7 +10,7 @@ NixOS: `services.gvfs`
 :::
 
 :::note
-Not every media player supports `position`, `volume` and other functionality. Support varies from player to player. 
+Not every media player supports `position`, `volume` and other functionality. Support varies from player to player.
 :::
 
 ## signals
