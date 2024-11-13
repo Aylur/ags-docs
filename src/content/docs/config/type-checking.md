@@ -1,5 +1,7 @@
 ---
 title: Type Checking
+banner:
+  content: You are looking at the legacy documentation of AGS v1. Go to <a href="https://aylur.github.io/ags/">aylur.github.io/ags</a> for AGS v2.
 ---
 
 To have auto suggestions and type checking while working on the configuration,
