@@ -11,16 +11,25 @@ maintainer: [@Aylur](https://github.com/Aylur)
 
 The recommended way is the [Home Manager module](../home-manager)
 
-or use nix flake profile install
-
-```bash
-nix profile install github:Aylur/ags
-```
-
-or try it without installing
+you can try it without installing
 
 ```bash
 nix run github:Aylur/ags
+```
+
+for activating binary cache add this lines to your configuration:
+
+```nix
+{
+  nix.settings = {
+    substituters = [
+      "https://ags.cachix.org"
+    ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
+  };
+}
 ```
 
 ## Arch
